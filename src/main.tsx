@@ -6,6 +6,7 @@ import Login from './features/login/index.tsx';
 import AppError from './AppError.tsx';
 import App from './App.tsx';
 import Post from './features/post/index.tsx';
+import { ThemeProvider, createTheme } from '@mui/material';
 
 
 const router = createBrowserRouter([
@@ -20,14 +21,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/post",
-        element: <Post/>
+        element: <Post />
       },
     ],
   },
 ]);
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#3bedb7',
+    },
+    secondary: {
+      main: '#3bedb7',
+    },
+  },
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>,
 )
