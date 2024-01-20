@@ -1,8 +1,10 @@
-const App = () => {
+import { Outlet } from "react-router-dom";
 
+const App = () => {
   return (
     <div className="p-2">
-      <div>hello world</div>
+      <nav>navigation layout</nav>
+      <Outlet/>
     </div>
   )
 }
