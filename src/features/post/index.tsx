@@ -11,4 +11,4 @@ interface PostProps {
     )
   }
 
-  export default Post
+  export default Post 

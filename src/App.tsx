@@ -1,9 +1,13 @@
 import { Outlet } from "react-router-dom";
+import Navbar from "./components/NavBar";
+
+
+// TODO : check if user is logged and navigate to posts page
 
 const App = () => {
   return (
-    <div className="p-2">
-      <nav>navigation layout</nav>
+    <div>
+      <Navbar/>
       <Outlet/>
     </div>
   )
