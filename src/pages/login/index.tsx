@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Button, Container, CssBaseline, TextField, Typography, Paper } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useForm, Controller } from 'react-hook-form';
+import AppLogo from '../../assets/svg/AppLogo';
 
 interface LoginForm {
   email: string;
@@ -16,14 +17,11 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-    <CssBaseline />
-    <Paper elevation={3} sx={{ padding: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 8 }}>
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <LockOutlinedIcon />
-      </Avatar>
+    <Container  maxWidth="xs">
+    <Paper elevation={3} sx={{ padding: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 8 }}>
+        <img src='src/assets/logo.svg' alt='Logo' className='w-28' />      
       <Typography component="h1" variant="h5" gutterBottom>
-        Sign in
+        Wise Buyer
       </Typography>
       <form onSubmit={handleSubmit(handleLogin)}>
         <Controller
