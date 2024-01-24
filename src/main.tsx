@@ -2,17 +2,23 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Login from './features/login/index.tsx';
 import AppError from './AppError.tsx';
 import App from './App.tsx';
-import Post from './features/post/index.tsx';
 import { ThemeProvider, createTheme } from '@mui/material';
+import Post from './pages/post/index.tsx';
+import Signup from './pages/signup/index.tsx';
+import Login from './pages/login/index.tsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+    errorElement: <AppError />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
     errorElement: <AppError />,
   },
   {
