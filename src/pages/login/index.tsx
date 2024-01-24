@@ -1,8 +1,6 @@
 import React from 'react';
-import { Avatar, Button, Container, CssBaseline, TextField, Typography, Paper } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
-import AppLogo from '../../assets/svg/AppLogo';
 
 interface LoginForm {
   email: string;
