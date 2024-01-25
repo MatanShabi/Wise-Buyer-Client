@@ -1,6 +1,6 @@
+import './main.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import 'bootstrap/dist/css/bootstrap.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import AppError from './pages/Error.tsx';
 import App from './pages/App.tsx';
