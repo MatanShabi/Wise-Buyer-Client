@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';import { LoginData } from '../../types';
 import { login } from '../../api/auth';
+import useUser from '../../hooks/useUser';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { user, updateUser } = useUser()
   const { control, handleSubmit, formState } = useForm<LoginData>();
 
   const handleLogin = async (loginData: LoginData) => {
@@ -13,12 +15,12 @@ const Login: React.FC = () => {
       const response = await login(loginData)
 
       if (!response.ok) {
-        // TODO: display error in screen
         throw Error(`Error: ${response.status} - ${response.statusText}`);
       }
-      const data = await response.json();
-      console.log(data);
-      //TODO: save user data in cookies
+      const loggedInUserData = await response.json();
+
+      updateUser(loggedInUserData)
+      
       navigate('/post');
     } catch (error) {
       console.error(`Failed to login, error: ${error}`);
@@ -28,6 +30,12 @@ const Login: React.FC = () => {
   const handleSignup = () => {
     navigate('/signup')
   }
+
+  useEffect(() => {
+    if (user) {
+      navigate('/post')
+    }
+  },[])
 
   return (
     <Container maxWidth="xs">

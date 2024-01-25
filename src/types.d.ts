@@ -9,3 +9,12 @@ export type SignupData = {
     email: string;
     password: string;
 }
+
+export type UserData = {
+    _id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    accessToken: string;
+    refreshToken: string;
+};
