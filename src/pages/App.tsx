@@ -1,10 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/NavBar";
+import { useEffect } from "react";
 
 
-// TODO : check if user is logged and navigate to posts page
+
 
 const App = () => {
+
+  useEffect(()=>{
+  
+  })
+
+  
   return (
     <div>
       <Navbar/>
