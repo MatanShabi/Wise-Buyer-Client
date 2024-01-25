@@ -1,41 +1,60 @@
 import React from 'react';
-import { Avatar, Button, Container, CssBaseline, TextField, Typography, Paper } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
-
-interface LoginForm {
-  email: string;
-  password: string;
-}
+import { useNavigate } from 'react-router-dom';import { LoginData } from '../../types';
+import { login } from '../../api/auth';
 
 const Login: React.FC = () => {
-  const { control, handleSubmit } = useForm<LoginForm>();
+  const navigate = useNavigate();
+  const { control, handleSubmit, formState } = useForm<LoginData>();
 
-  const handleLogin = (data: LoginForm) => {
-    console.log('Login data:', data);
+  const handleLogin = async (loginData: LoginData) => {
+    try {
+      const response = await login(loginData)
+
+      if (!response.ok) {
+        throw Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log(data);
+      //TODO: save user data in cookies
+      navigate('/post');
+    } catch (error) {
+      console.error(`Failed to login, error: ${error}`);
+    }
   };
+  
+  const handleSignup = () => {
+    navigate('/signup')
+  }
 
   return (
-    <Container component="main" maxWidth="xs">
-    <CssBaseline />
-    <Paper elevation={3} sx={{ padding: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 8 }}>
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <LockOutlinedIcon />
-      </Avatar>
+    <Container maxWidth="xs">
+    <Paper elevation={3} sx={{ padding: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 20 }}>
+        <img src='src/assets/logo.svg' alt='Logo' className='w-28' />      
       <Typography component="h1" variant="h5" gutterBottom>
-        Sign in
+        Wise Buyer
       </Typography>
       <form onSubmit={handleSubmit(handleLogin)}>
         <Controller
           name="email"
           control={control}
           defaultValue=""
+          rules={{
+            required: 'Email is required',
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Invalid email address',
+            },
+          }}
           render={({ field }) => (
             <TextField
               label="Email"
               variant="outlined"
               fullWidth
               margin="normal"
+              error={!!formState.errors.email}
+              helperText={formState.errors.email?.message}
               {...field}
             />
           )}
@@ -44,6 +63,9 @@ const Login: React.FC = () => {
           name="password"
           control={control}
           defaultValue=""
+          rules={{
+            required: 'Password is required',
+          }}
           render={({ field }) => (
             <TextField
               label="Password"
@@ -51,13 +73,20 @@ const Login: React.FC = () => {
               variant="outlined"
               fullWidth
               margin="normal"
+              error={!!formState.errors.password}
+              helperText={formState.errors.password?.message}
               {...field}
             />
           )}
         />
+        <div className='flex flex-row gap-1'>
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ marginTop: 2 }}>
-          Sign In
+          Login
         </Button>
+        <Button onClick={handleSignup} type="submit" variant="contained" color="secondary" fullWidth sx={{ marginTop: 2 }}>
+          Sign Up
+        </Button>
+        </div>
       </form>
     </Paper>
   </Container>

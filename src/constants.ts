@@ -1,0 +1,1 @@
+export const WISE_BUYER_SERVER_URL = "http://localhost:3000"

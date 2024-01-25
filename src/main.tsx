@@ -1,9 +1,9 @@
+import './main.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import 'bootstrap/dist/css/bootstrap.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import AppError from './AppError.tsx';
-import App from './App.tsx';
+import AppError from './pages/Error.tsx';
+import App from './pages/App.tsx';
 import { ThemeProvider, createTheme } from '@mui/material';
 import Post from './pages/post/index.tsx';
 import Signup from './pages/signup/index.tsx';
@@ -39,7 +39,7 @@ const theme = createTheme({
       main: '#3bedb7',
     },
     secondary: {
-      main: '#3bedb7',
+      main: '#000',
     },
   },
 });
