@@ -11,11 +11,12 @@ const App = () => {
   const { user } = useUser()
 
   useEffect(() => {
-    if (!user) {
-      navigate('/')
-    }
-  }, [user])
-  
+    console.log(user)
+    // if (!user) {
+    //   navigate('/')
+    // }
+  }, [])
+
   return (
     <div>
       <Navbar />

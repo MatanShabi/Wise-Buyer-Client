@@ -36,7 +36,7 @@ const Login: React.FC = () => {
     if (user) {
       navigate('/post')
     }
-  },[user])
+  },[])
 
   return (
     <Container maxWidth="xs">
