@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Signup: React.FC = () => {
     const navigate = useNavigate()
-    const { control, handleSubmit } = useForm<SignupData>();
+    const { control, handleSubmit, formState } = useForm<SignupData>();
 
     const handleSignup = async (data: SignupData) => {
         try {
@@ -35,30 +35,67 @@ const Signup: React.FC = () => {
                         name="firstName"
                         control={control}
                         defaultValue=""
+                        rules={{
+                            required: 'First name is required'
+                        }}
                         render={({ field }) => (
-                            <TextField label="First Name" variant="outlined" fullWidth margin="normal" {...field} />
+                            <TextField
+                                label="First Name"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                                error={!!formState.errors.firstName}
+                                helperText={formState.errors.firstName?.message}
+                                {...field} />
                         )}
                     />
                     <Controller
                         name="lastName"
                         control={control}
                         defaultValue=""
+                        rules={{
+                            required: 'Last name is required'
+                        }}
                         render={({ field }) => (
-                            <TextField label="Last Name" variant="outlined" fullWidth margin="normal" {...field} />
+                            <TextField
+                                label="Last Name"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                                error={!!formState.errors.lastName}
+                                helperText={formState.errors.lastName?.message}
+                                {...field} />
                         )}
                     />
                     <Controller
                         name="email"
                         control={control}
                         defaultValue=""
+                        rules={{
+                            required: 'Email is required',
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: 'Invalid email address',
+                            },
+                        }}
                         render={({ field }) => (
-                            <TextField label="Email" variant="outlined" fullWidth margin="normal" {...field} />
+                            <TextField
+                                label="Email"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                                error={!!formState.errors.email}
+                                helperText={formState.errors.email?.message}
+                                {...field} />
                         )}
                     />
                     <Controller
                         name="password"
                         control={control}
                         defaultValue=""
+                        rules={{
+                            required: 'Password is required',
+                        }}
                         render={({ field }) => (
                             <TextField
                                 label="Password"
@@ -66,6 +103,8 @@ const Signup: React.FC = () => {
                                 variant="outlined"
                                 fullWidth
                                 margin="normal"
+                                error={!!formState.errors.password}
+                                helperText={formState.errors.password?.message}
                                 {...field}
                             />
                         )}
