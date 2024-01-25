@@ -1,33 +1,21 @@
 import React from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-
-interface LoginForm {
-  email: string;
-  password: string;
-}
+import { useNavigate } from 'react-router-dom';import { LoginData } from '../../types';
+import { login } from '../../api/auth';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { control, handleSubmit, formState } = useForm<LoginForm>();
+  const { control, handleSubmit, formState } = useForm<LoginData>();
 
-  const handleLogin = async (loginData: LoginForm) => {
+  const handleLogin = async (loginData: LoginData) => {
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-  
+      const response = await login(loginData)
+
       if (!response.ok) {
         throw Error(`Error: ${response.status} - ${response.statusText}`);
       }
-  
       const data = await response.json();
-  
       console.log(data);
       //TODO: save user data in cookies
       navigate('/post');
