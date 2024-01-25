@@ -12,10 +12,30 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const { control, handleSubmit, formState } = useForm<LoginForm>();
 
-  const handleLogin = (data: LoginForm) => {
-    console.log('Login data:', data);
+  const handleLogin = async (loginData: LoginForm) => {
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      });
+  
+      if (!response.ok) {
+        throw Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+  
+      console.log(data);
+      //TODO: save user data in cookies
+      navigate('/post');
+    } catch (error) {
+      console.error(`Failed to login, error: ${error}`);
+    }
   };
-
+  
   const handleSignup = () => {
     navigate('/signup')
   }
