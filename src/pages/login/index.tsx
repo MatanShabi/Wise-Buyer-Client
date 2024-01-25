@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';import { LoginData } from '../../types';
@@ -7,7 +7,7 @@ import useUser from '../../hooks/useUser';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { updateUser } = useUser()
+  const { user, updateUser } = useUser()
   const { control, handleSubmit, formState } = useForm<LoginData>();
 
   const handleLogin = async (loginData: LoginData) => {
@@ -19,7 +19,7 @@ const Login: React.FC = () => {
         throw Error(`Error: ${response.status} - ${response.statusText}`);
       }
       const loggedInUserData = await response.json();
-      
+      console.log(loggedInUserData)
       updateUser(loggedInUserData)
 
       navigate('/post');
@@ -31,6 +31,12 @@ const Login: React.FC = () => {
   const handleSignup = () => {
     navigate('/signup')
   }
+
+  useEffect(() => {
+    if (user) {
+      navigate('/post')
+    }
+  },[user])
 
   return (
     <Container maxWidth="xs">
