@@ -15,6 +15,7 @@ const Login: React.FC = () => {
       const response = await login(loginData)
 
       if (!response.ok) {
+        // TODO: display error in screen
         throw Error(`Error: ${response.status} - ${response.statusText}`);
       }
       const loggedInUserData = await response.json();
