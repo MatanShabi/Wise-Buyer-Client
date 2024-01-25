@@ -9,7 +9,7 @@ const App = () => {
 
   useEffect(() => {
     if (!user) {
-      console.log('user', user)
+      navigate('/')
     }
   }, [user])
 
