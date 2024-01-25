@@ -46,6 +46,7 @@ const Login: React.FC = () => {
               fullWidth
               margin="normal"
               error={!!formState.errors.email}
+              helperText={formState.errors.email?.message}
               {...field}
             />
           )}
@@ -65,6 +66,7 @@ const Login: React.FC = () => {
               fullWidth
               margin="normal"
               error={!!formState.errors.password}
+              helperText={formState.errors.password?.message}
               {...field}
             />
           )}
