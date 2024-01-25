@@ -15,13 +15,12 @@ const Login: React.FC = () => {
       const response = await login(loginData)
 
       if (!response.ok) {
-        // TODO: display error in screen
         throw Error(`Error: ${response.status} - ${response.statusText}`);
       }
       const loggedInUserData = await response.json();
-      console.log(loggedInUserData)
-      updateUser(loggedInUserData)
 
+      updateUser(loggedInUserData)
+      
       navigate('/post');
     } catch (error) {
       console.error(`Failed to login, error: ${error}`);
