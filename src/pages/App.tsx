@@ -3,19 +3,15 @@ import Navbar from "../components/NavBar";
 import { useEffect } from "react";
 import useUser from "../hooks/useUser";
 
-
-
-
 const App = () => {  
   const navigate = useNavigate()
   const { user } = useUser()
 
   useEffect(() => {
-    console.log(user)
-    // if (!user) {
-    //   navigate('/')
-    // }
-  }, [])
+    if (!user) {
+      console.log('user', user)
+    }
+  }, [user])
 
   return (
     <div>
