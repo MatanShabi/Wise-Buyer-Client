@@ -21,7 +21,7 @@ export interface IPost {
 const Posts = () => {
   const { user } = useUser();
 
-  const [postList, setPostList] = useState<IPost[]>([])
+  const [postList, setPostList] = useState<IPost[]>(null)
 
   const methods = useForm<IPost>({
     defaultValues: {
@@ -41,25 +41,27 @@ const Posts = () => {
   const fetchAllPosts = async () => {
     const response = await getAllPosts();
 
-    if(response?.status !== 200) {
+    if (response?.status !== 200) {
       console.error('Failed To Fetch Posts')
     }
 
     setPostList(response?.data || [])
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchAllPosts()
-  },[])
+  }, [])
 
   return (
     <Container maxWidth="lg" className="my-8">
       <FormProvider {...methods}>
         <AddPost handleSubmitPost={handleSubmitPost} />
       </FormProvider>
-      <Suspense fallback={<p>Loading...</p>}>
-      {postList.map((post: IPost) => <Post post={post} />)}
-      </Suspense>
+      {
+      postList ? postList.map((post: IPost) => <Post post={post} />)
+        : <p>Loading</p>
+      }
+
     </Container>
   );
 };
