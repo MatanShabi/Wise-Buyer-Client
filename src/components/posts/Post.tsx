@@ -1,13 +1,14 @@
-import { Avatar, Card, CardContent, Typography } from "@mui/material"
+import { Avatar, Button, Card, CardContent, Typography } from "@mui/material"
 import { IPost } from "."
 import { Link } from "react-router-dom"
+import { CommentOutlined } from "@mui/icons-material"
 
 interface PostProps {
     post: IPost
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
-    const { title, description, catalog, productUrl, price, link, user } = post
+    const { title, description, catalog, pictureUrl, price, link, user } = post
     return (
         <Card className="mt-4" style={{ borderRadius: '0.6rem' }}>
             <CardContent>
@@ -21,20 +22,34 @@ const Post: React.FC<PostProps> = ({ post }) => {
                     <Typography variant="h6" color="textPrimary" className="flex gap-2">
                         <p>{title}</p> | <p>{catalog}</p>
                     </Typography>
-                    {productUrl &&
-                        <img src={link} alt="Product Image" className="w-full h-[40rem] p-5" />}
                     <Typography color="textSecondary">
                         {description}
                     </Typography>
                     <Typography color="textSecondary">
                     </Typography>
                     <Typography color="textSecondary">
-                        Product URL: <a href={productUrl} target="_blank" rel="noopener noreferrer">{productUrl}</a>
+                        Product URL: <a href={link} target="_blank" rel="noopener noreferrer">{link}</a>
                     </Typography>
                     <Typography color="textSecondary">
                         Price: {price}
                     </Typography>
+                    {pictureUrl &&
+                        <img src={pictureUrl} alt="Product Image" className="w-full h-[40rem] p-5 border-[#0000001f] border" />}
+
+                    <Typography color="textSecondary">
+                        <Button
+                            variant="contained"
+                            component="label"
+                            htmlFor="picture"
+                            color="secondary"
+
+                            startIcon={<CommentOutlined />}
+                        >
+                            Comments
+                        </Button>
+                    </Typography>
                 </div>
+
             </CardContent>
         </Card>
     )

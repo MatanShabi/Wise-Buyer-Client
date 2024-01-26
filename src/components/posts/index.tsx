@@ -17,7 +17,7 @@ export interface IPost {
   catalog: string;
   description: string;
   link?: string;
-  productUrl?: string;
+  pictureUrl?: string;
   price: number;
   user?: IPostUserData;
 }
@@ -33,7 +33,7 @@ const Posts = () => {
       title: "",
       link: "",
       catalog: "",
-      productUrl: "",
+      pictureUrl: "",
       description: "",
       price: 0,
     }

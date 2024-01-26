@@ -13,7 +13,8 @@ interface AddNewProps {
 
 const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
     const { user } = useUser();
-    const { handleSubmit, control, formState, setValue } = useFormContext<IPost>();
+    const { handleSubmit, control, formState, setValue, watch } = useFormContext<IPost>();
+    const { pictureUrl } = watch();
 
     const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
         const file: File | null = event.target.files?.[0] || null;
@@ -22,9 +23,9 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
             console.error('No file selected.');
             return;
         }
-        const response = await uploadFile(`post/${user._id}`, file);
-        console.log(response)
-        setValue('productUrl', response?.data || '')
+        const response = await uploadFile(`/post/${user._id}`, file);
+
+        setValue('pictureUrl', response?.data?.url || '')
     }
 
     return (
@@ -157,6 +158,14 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
 
                 </div>
             </form>
+
+            {pictureUrl &&
+                <div className="flex my-4">
+                    <p>preview:</p>
+                    <img src={pictureUrl} alt="Product Image" className="w-[10rem] h-[10rem] p-5" />
+                </div>
+            }
+
         </Paper>
     );
 };
