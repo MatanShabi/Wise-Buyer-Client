@@ -60,6 +60,10 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                         defaultValue=""
                         rules={{
                             required: "Link is required",
+                            pattern: {
+                                value: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i,
+                                message: 'Invalid URL',
+                            },
                         }}
                         render={({ field }) => (
                             <TextField
