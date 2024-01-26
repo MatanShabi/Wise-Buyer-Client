@@ -48,6 +48,7 @@ const Posts = () => {
       console.log('Failed to create post');
       return;
     }
+    
     setPostList([response?.data, ...postList]);
   };
 
@@ -57,8 +58,6 @@ const Posts = () => {
     if (response?.status !== 200) {
       console.error('Failed To Fetch Posts')
     }
-
-    console.log(response?.data)
 
     setPostList(response?.data || [])
   }

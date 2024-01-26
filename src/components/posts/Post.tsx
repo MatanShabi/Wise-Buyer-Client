@@ -8,14 +8,17 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
-    const { title, description, catalog, pictureUrl, price, link, user } = post
+    const { title, description, catalog, pictureUrl, price, link, user, _id } = post
+    
+    if(!user) return 
+    
     return (
         <Card className="mt-4" style={{ borderRadius: '0.6rem' }}>
             <CardContent>
                 <Link to="/user/profile" color="inherit" className="flex items-center gap-2">
-                    <Avatar alt={user?.firstName?.toUpperCase() || ""} src={user?.pictureUrl} />
+                    <Avatar alt={user.firstName.toUpperCase() || ""} src={user.pictureUrl} />
                     <Typography variant="h5">
-                        {user?.firstName} {user?.lastName}
+                        {user.firstName} {user.lastName}
                     </Typography>
                 </Link>
                 <div className="flex flex-col gap-2 mt-4 ml-12 mr-12 mb-3">
@@ -39,10 +42,9 @@ const Post: React.FC<PostProps> = ({ post }) => {
                     <Typography color="textSecondary">
                         <Button
                             variant="contained"
-                            component="label"
-                            htmlFor="picture"
+                            component={Link}
                             color="secondary"
-
+                            to={`/comments/${_id}`}
                             startIcon={<CommentOutlined />}
                         >
                             Comments

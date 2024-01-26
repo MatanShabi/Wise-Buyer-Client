@@ -12,14 +12,11 @@ const Navbar: React.FC<NavbarProps> = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component={Link} to="/">
-          Your App Name
+          Wise Buyer
         </Typography>
         {/* TODO: connect logout also to server */}
         <Button onClick={logoutUser} color="inherit" component={Link} to="/">
           Logout
-        </Button>
-        <Button color="inherit" component={Link} to="/signup">
-          Sign Up
         </Button>
       </Toolbar>
     </AppBar>
