@@ -11,13 +11,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
     const { title, description, catalog, pictureUrl, price, link, user, _id } = post
     
     if(!user) return 
-    
+
     return (
         <Card className="mt-4" style={{ borderRadius: '0.6rem' }}>
             <CardContent>
                 <Link to="/user/profile" color="inherit" className="flex items-center gap-2">
                     <Avatar alt={user.firstName.toUpperCase() || ""} src={user.pictureUrl} />
-                    <Typography variant="h5">
+                    <Typography variant="h6">
                         {user.firstName} {user.lastName}
                     </Typography>
                 </Link>
