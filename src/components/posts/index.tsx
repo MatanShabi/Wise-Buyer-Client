@@ -1,42 +1,67 @@
 import useUser from "../../hooks/useUser";
-import { Container, Paper } from "@mui/material";
+import { Container } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
 import AddPost from "./AddPost";
+import Post from "./Post";
+import { Suspense, useEffect, useState } from "react";
+import { getAllPosts } from "../../api/post";
 
 export interface IPost {
   title: string;
   catalog: string;
   description: string;
   link?: string;
-  pictureUrl: string;
+  productUrl?: string;
   price: number;
-  owner?: string;
+  userId?: string;
 }
 
-const Post = () => {
+
+const Posts = () => {
   const { user } = useUser();
+
+  const [postList, setPostList] = useState<IPost[]>([])
 
   const methods = useForm<IPost>({
     defaultValues: {
       title: "",
       link: "",
       catalog: "",
+      productUrl: "",
       description: "",
       price: 0,
     }
   })
-  const handleSubmitPost = async (postData: IPost) => console.log(postData)
+
+  const handleSubmitPost = async (postData: IPost) => {
+    console.log(postData)
+  }
+
+  const fetchAllPosts = async () => {
+    const response = await getAllPosts();
+
+    if(response?.status !== 200) {
+      console.error('Failed To Fetch Posts')
+    }
+
+    setPostList(response?.data || [])
+  }
+
+  useEffect(()=>{
+    fetchAllPosts()
+  },[])
 
   return (
     <Container maxWidth="lg" className="my-8">
-      <Paper className="p-8">
-        <FormProvider {...methods}>
-          <AddPost handleSubmitPost={handleSubmitPost} />
-        </FormProvider>
-      </Paper>
+      <FormProvider {...methods}>
+        <AddPost handleSubmitPost={handleSubmitPost} />
+      </FormProvider>
+      <Suspense fallback={<p>Loading...</p>}>
+      {postList.map((post: IPost) => <Post post={post} />)}
+      </Suspense>
     </Container>
   );
 };
 
-export default Post;
+export default Posts;
