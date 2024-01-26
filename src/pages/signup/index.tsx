@@ -12,10 +12,10 @@ const Signup: React.FC = () => {
 
     const handleSignup = async (data: SignupData) => {
         try {
-            const response = await register(data)
-            if (!response.ok) {
+            const { status, statusText } = await register(data)
+            if (status !== 200) {
                 // TODO: display error in the screen
-                throw Error(`Error: ${response.status} - ${response.statusText}`);
+                throw Error(`Error: ${status} - ${statusText}`);
             }
             navigate('/')
         } catch (error) {

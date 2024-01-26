@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
-import { UserData } from '../types';
+import { IUser } from '../types';
 
 const useUser = () => {
     const storedUser = Cookies.get('user');
     const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     const [user, setUser] = useState(parsedUser);
 
-    const updateUser = (newUserData: UserData) => {
+    const updateUser = (newUserData: IUser) => {
         setUser(newUserData);
         Cookies.set('user', JSON.stringify(newUserData), { expires: 7 });
     };
