@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { IPost } from ".";
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Paper, Select, TextField } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { Catalog } from "./enums";
 
@@ -13,132 +13,134 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
     const { handleSubmit, control, formState } = useFormContext<IPost>();
 
     return (
-        <form
-            className="flex flex-col gap-1 mb-12 border-b border-gray-200 pb-10"
-            onSubmit={handleSubmit(handleSubmitPost)}
-        >
-            <Controller
-                name="title"
-                control={control}
-                defaultValue=""
-                rules={{
-                    required: "Title name is required",
-                }}
-                render={({ field }) => (
-                    <TextField
-                        label="Title"
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        error={!!formState.errors.title}
-                        {...field}
-                    />
-                )}
-            />
-            <div className="flex flex-row gap-4 items-center">
+        <Paper className="p-8 border-b-4 border-black">
+            <form
+                className="flex flex-col gap-1"
+                onSubmit={handleSubmit(handleSubmitPost)}
+            >
                 <Controller
-                    name="link"
+                    name="title"
                     control={control}
                     defaultValue=""
+                    rules={{
+                        required: "Title name is required",
+                    }}
                     render={({ field }) => (
                         <TextField
-                            label="Link"
+                            label="Title"
                             variant="outlined"
                             fullWidth
                             margin="normal"
-                            error={!!formState.errors.link}
+                            error={!!formState.errors.title}
                             {...field}
                         />
                     )}
                 />
-                <div className="flex w-full pt-2">
-                <Controller
-                    name="catalog"
-                    control={control}
-                    rules={{
-                        required: "Catalog name is required",
-                    }}
-                    render={({ field }) => (
-                        <FormControl fullWidth>
-                            <InputLabel>Catalog</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                label="Catalog"
-                                
+                <div className="flex flex-row gap-4 items-center">
+                    <Controller
+                        name="link"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                            <TextField
+                                label="Link"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                                error={!!formState.errors.link}
                                 {...field}
-                            >
-                                {Object.values(Catalog).map((catalog) => (
-                                    <MenuItem key={catalog} value={catalog}>
-                                        {catalog}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    )}
-                />
+                            />
+                        )}
+                    />
+                    <div className="flex w-full pt-2">
+                        <Controller
+                            name="catalog"
+                            control={control}
+                            rules={{
+                                required: "Catalog name is required",
+                            }}
+                            render={({ field }) => (
+                                <FormControl fullWidth>
+                                    <InputLabel>Catalog</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        label="Catalog"
+
+                                        {...field}
+                                    >
+                                        {Object.values(Catalog).map((catalog) => (
+                                            <MenuItem key={catalog} value={catalog}>
+                                                {catalog}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            )}
+                        />
+                    </div>
+                    <Controller
+                        name="price"
+                        control={control}
+                        rules={{
+                            required: "Price is required",
+                        }}
+                        render={({ field }) => (
+                            <TextField
+                                label="Price"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                                type="number"
+                                error={!!formState.errors.price}
+                                {...field}
+                            />
+                        )}
+                    />
                 </div>
                 <Controller
-                    name="price"
+                    name="description"
                     control={control}
+                    defaultValue=""
                     rules={{
-                        required: "Price is required",
+                        required: "Description is required",
                     }}
                     render={({ field }) => (
                         <TextField
-                            label="Price"
+                            label="Description"
                             variant="outlined"
                             fullWidth
                             margin="normal"
-                            type="number"
-                            error={!!formState.errors.price}
+                            multiline
+                            rows={4}
+                            error={!!formState.errors.description}
                             {...field}
                         />
                     )}
                 />
-            </div>
-            <Controller
-                name="description"
-                control={control}
-                defaultValue=""
-                rules={{
-                    required: "Description is required",
-                }}
-                render={({ field }) => (
-                    <TextField
-                        label="Description"
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        multiline
-                        rows={4}
-                        error={!!formState.errors.description}
-                        {...field}
-                    />
-                )}
-            />
-            <div className="flex gap-1">
-                <Button
-                    variant="contained"
-                    component="label"
-                    htmlFor="picture"
-                    color="secondary"
-                    startIcon={<AddPhotoAlternateIcon />}
-                >
-                    Add Picture
-                    <input
-                        id="picture"
-                        name="picture"
-                        type="file"
-                        style={{ display: "none" }}
-                    />
-                </Button>
+                <div className="flex gap-1">
+                    <Button
+                        variant="contained"
+                        component="label"
+                        htmlFor="picture"
+                        color="secondary"
+                        startIcon={<AddPhotoAlternateIcon />}
+                    >
+                        Add Picture
+                        <input
+                            id="picture"
+                            name="picture"
+                            type="file"
+                            style={{ display: "none" }}
+                        />
+                    </Button>
 
-                <Button type="submit" variant="contained" color="primary">
-                    Post
-                </Button>
+                    <Button type="submit" variant="contained" color="primary">
+                        Post
+                    </Button>
 
-            </div>
-        </form>
+                </div>
+            </form>
+        </Paper>
     );
 };
 
