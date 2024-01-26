@@ -1,16 +1,31 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { IPost } from ".";
 import { Button, FormControl, InputLabel, MenuItem, Paper, Select, TextField } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { Catalog } from "./enums";
+import { uploadFile } from "../../api/upload";
+import useUser from "../../hooks/useUser";
 
 interface AddNewProps {
     handleSubmitPost: (postData: IPost) => void;
 }
 
 const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
-    const { handleSubmit, control, formState } = useFormContext<IPost>();
+    const { user } = useUser();
+    const { handleSubmit, control, formState, setValue } = useFormContext<IPost>();
+
+    const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+        const file: File | null = event.target.files?.[0] || null;
+
+        if (!file) {
+            console.error('No file selected.');
+            return;
+        }
+        const response = await uploadFile(`post/${user._id}`, file);
+        console.log(response)
+        setValue('productUrl', response?.data || '')
+    }
 
     return (
         <Paper className="p-8 border-b-4 border-black">
@@ -123,6 +138,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                         component="label"
                         htmlFor="picture"
                         color="secondary"
+
                         startIcon={<AddPhotoAlternateIcon />}
                     >
                         Add Picture
@@ -130,6 +146,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                             id="picture"
                             name="picture"
                             type="file"
+                            onChange={handleFileUpload}
                             style={{ display: "none" }}
                         />
                     </Button>

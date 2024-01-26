@@ -3,13 +3,8 @@ import apiClient from "./apiClient";
 import { getAuthToken } from "./utils";
 
 export const getAllPosts = async () => {
-    const token = getAuthToken();
-
-    if (!token) {
-        console.error("Authorization token is missing");
-    }
-
     try {
+        const token = getAuthToken();
         return apiClient.get('/post', {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -21,9 +16,8 @@ export const getAllPosts = async () => {
 };
 
 export const createPost = async (postData: IPost) => {
-    const token = getAuthToken();
-
     try {
+        const token = getAuthToken();
         return apiClient.post('/post', postData, {
             headers: {
                 Authorization: `Bearer ${token}`
