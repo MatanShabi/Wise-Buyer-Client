@@ -18,6 +18,9 @@ const Navbar: React.FC<NavbarProps> = () => {
           <Button color="inherit" component={Link} to="/profile">
             Profile
           </Button>
+          <Button color="inherit" component={Link} to="/post">
+            Posts
+          </Button>
           <Button color="inherit" component={Link} to="/aboutus">
             About Us
           </Button>
