@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
-import { IUser } from '../types';
+import { IUser } from '../types/auth';
 
 const useUser = () => {
     const storedUser = Cookies.get('user');

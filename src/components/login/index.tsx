@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { LoginData } from '../../types';
 import { login } from '../../api/auth';
 import useUser from '../../hooks/useUser';
+import { LoginData } from '../../types/auth';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();

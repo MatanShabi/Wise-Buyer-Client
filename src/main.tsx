@@ -1,13 +1,13 @@
-import './main.css'
+import './styles/main.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import AppError from './pages/Error.tsx';
-import App from './pages/App.tsx';
+import AppError from './components/Error.tsx';
+import App from './components/App.tsx';
 import { ThemeProvider, createTheme } from '@mui/material';
-import Post from './pages/post/index.tsx';
-import Signup from './pages/signup/index.tsx';
-import Login from './pages/login/index.tsx';
+import Post from './components/post/index.tsx';
+import Signup from './components/signup/index.tsx';
+import Login from './components/login/index.tsx';
 
 
 const router = createBrowserRouter([

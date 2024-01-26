@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import useUser from '../hooks/useUser';
+import useUser from '../../hooks/useUser';
 
 interface NavbarProps { }
 

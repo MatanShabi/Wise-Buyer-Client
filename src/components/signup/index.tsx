@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
-import { SignupData } from '../../types';
 import { register } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
-
+import { SignupData } from '../../types/auth';
 
 const Signup: React.FC = () => {
     const navigate = useNavigate()
@@ -13,7 +12,7 @@ const Signup: React.FC = () => {
     const handleSignup = async (data: SignupData) => {
         try {
             const { status, statusText } = await register(data)
-            if (status !== 200) {
+            if (status !== 201) {
                 // TODO: display error in the screen
                 throw Error(`Error: ${status} - ${statusText}`);
             }

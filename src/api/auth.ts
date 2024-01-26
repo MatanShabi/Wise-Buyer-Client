@@ -1,5 +1,4 @@
-
-import { IUser, LoginData, SignupData } from "../types";
+import { IUser, LoginData, SignupData } from "../types/auth";
 import apiClient from "./apiClient";
 
 export const login = async (loginData: LoginData) => {
