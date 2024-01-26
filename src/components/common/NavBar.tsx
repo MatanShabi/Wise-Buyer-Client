@@ -6,18 +6,24 @@ import useUser from '../../hooks/useUser';
 interface NavbarProps { }
 
 const Navbar: React.FC<NavbarProps> = () => {
-  const { logoutUser } = useUser()
+  const { logoutUser, user } = useUser()
 
   return (
     <AppBar position="static" className='flex w-full'>
       <Toolbar>
-        <Typography variant="h6" component={Link} to="/">
-          Wise Buyer
-        </Typography>
-          {/* TODO: connect logout also to server */}
-          <Button onClick={logoutUser} color="inherit" component={Link} to="/">
-            Logout
-          </Button>
+        <div className='flex items-center gap-2'>
+          <Typography variant="h6" component={Link} to="/">
+            Wise Buyer
+          </Typography>
+          <Typography variant="h6" component={Link} to="/">
+            Welcome {user.firstName} {user.lastName} !
+          </Typography>
+          <Typography variant="h6" component={Link} to="/">
+            <Button onClick={logoutUser} color="inherit" component={Link} to="/">
+              Logout
+            </Button>
+          </Typography>
+        </div>
       </Toolbar>
     </AppBar>
   );
