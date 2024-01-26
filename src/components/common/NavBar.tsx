@@ -7,17 +7,17 @@ interface NavbarProps { }
 
 const Navbar: React.FC<NavbarProps> = () => {
   const { logoutUser } = useUser()
-  
+
   return (
-    <AppBar position="static">
+    <AppBar position="static" className='flex w-full'>
       <Toolbar>
         <Typography variant="h6" component={Link} to="/">
           Wise Buyer
         </Typography>
-        {/* TODO: connect logout also to server */}
-        <Button onClick={logoutUser} color="inherit" component={Link} to="/">
-          Logout
-        </Button>
+          {/* TODO: connect logout also to server */}
+          <Button onClick={logoutUser} color="inherit" component={Link} to="/">
+            Logout
+          </Button>
       </Toolbar>
     </AppBar>
   );
