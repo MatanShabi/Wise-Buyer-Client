@@ -51,7 +51,6 @@ const Post: React.FC<PostProps> = ({ post }) => {
                         </Button>
                     </Typography>
                 </div>
-
             </CardContent>
         </Card>
     )

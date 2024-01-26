@@ -48,6 +48,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                             fullWidth
                             margin="normal"
                             error={!!formState.errors.title}
+                            helperText={formState.errors.title?.message}
                             {...field}
                         />
                     )}
@@ -57,6 +58,9 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                         name="link"
                         control={control}
                         defaultValue=""
+                        rules={{
+                            required: "Link is required",
+                        }}
                         render={({ field }) => (
                             <TextField
                                 label="Link"
@@ -64,6 +68,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                                 fullWidth
                                 margin="normal"
                                 error={!!formState.errors.link}
+                                helperText={formState.errors.link?.message}
                                 {...field}
                             />
                         )}
@@ -79,9 +84,8 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                                 <FormControl fullWidth>
                                     <InputLabel>Catalog</InputLabel>
                                     <Select
-                                        labelId="demo-simple-select-label"
                                         label="Catalog"
-
+                                        error={!!formState.errors.catalog}
                                         {...field}
                                     >
                                         {Object.values(Catalog).map((catalog) => (
@@ -108,6 +112,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                                 margin="normal"
                                 type="number"
                                 error={!!formState.errors.price}
+                                helperText={formState.errors.price?.message}
                                 {...field}
                             />
                         )}
@@ -129,6 +134,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                             multiline
                             rows={4}
                             error={!!formState.errors.description}
+                            helperText={formState.errors.description?.message}
                             {...field}
                         />
                     )}
