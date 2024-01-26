@@ -1,25 +1,11 @@
-import { WISE_BUYER_SERVER_URL } from "../constants";
-import { LoginData, SignupData } from "../types";
 
-const AUTH_BASE_URL = `${WISE_BUYER_SERVER_URL}/auth`
+import { IUser, LoginData, SignupData } from "../types";
+import apiClient from "./apiClient";
 
 export const login = async (loginData: LoginData) => {
-    return await fetch(`${AUTH_BASE_URL}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-}
+    return apiClient.post<IUser>('auth/login', loginData);
+};
 
-export const register = async (loginData: SignupData) => {
-    return await fetch(`${AUTH_BASE_URL}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-}
-
+export const register = async (signupData: SignupData) => {
+    return await apiClient.post('auth/register', signupData);
+};
