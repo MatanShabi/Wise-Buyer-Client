@@ -6,21 +6,9 @@ import AddPost from "./AddPost";
 import Post from "./Post";
 import { useEffect, useState } from "react";
 import { createPost, getAllPosts } from "../../api/post";
-import { IUser } from "../../types/auth";
+import { IPost } from "../../types/post";
 
 
-interface IPostUserData extends Pick<IUser, 'firstName' | 'lastName' | 'pictureUrl'> { }
-
-export interface IPost {
-  _id: string;
-  title: string;
-  catalog: string;
-  description: string;
-  link?: string;
-  pictureUrl?: string;
-  price: number;
-  user?: IPostUserData;
-}
 
 
 const Posts = () => {

@@ -1,4 +1,4 @@
-import { IPost } from "../components/posts";
+import { IPost } from "../types/post";
 import apiClient from "./apiClient";
 import { getAuthToken } from "./utils";
 

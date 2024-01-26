@@ -1,11 +1,11 @@
 import { ChangeEvent, FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { IPost } from ".";
 import { Button, FormControl, InputLabel, MenuItem, Paper, Select, TextField } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { Catalog } from "./enums";
 import { uploadFile } from "../../api/upload";
 import useUser from "../../hooks/useUser";
+import { IPost } from "../../types/post";
 
 interface AddNewProps {
     handleSubmitPost: (postData: IPost) => void;

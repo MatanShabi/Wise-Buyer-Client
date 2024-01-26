@@ -1,7 +1,7 @@
 import { Avatar, Button, Card, CardContent, Typography } from "@mui/material"
-import { IPost } from "."
 import { Link } from "react-router-dom"
 import { CommentOutlined } from "@mui/icons-material"
+import { IPost } from "../../types/post"
 
 interface PostProps {
     post: IPost
@@ -15,7 +15,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     return (
         <Card className="mt-4" style={{ borderRadius: '0.6rem' }}>
             <CardContent>
-                <Link to="/user/profile" color="inherit" className="flex items-center gap-2">
+                <Link to={`/user/profile/${user._id}`} color="inherit" className="flex items-center gap-2">
                     <Avatar alt={user.firstName.toUpperCase() || ""} src={user.pictureUrl} />
                     <Typography variant="h6">
                         {user.firstName} {user.lastName}
