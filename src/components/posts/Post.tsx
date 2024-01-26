@@ -7,14 +7,14 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
-    const { title, description, catalog, productUrl, price } = post
+    const { title, description, catalog, productUrl, price, link, user } = post
     return (
-        <Card className="mt-4" style={{ borderRadius:'0.6rem'}}>
+        <Card className="mt-4" style={{ borderRadius: '0.6rem' }}>
             <CardContent>
                 <Link to="/user/profile" color="inherit" className="flex items-center gap-2">
-                    <Avatar alt="User Avatar" src="/path/to/avatar.jpg" />
+                    <Avatar alt={user?.firstName?.toUpperCase() || ""} src={user?.pictureUrl} />
                     <Typography variant="h5">
-                        John Doe
+                        {user?.firstName} {user?.lastName}
                     </Typography>
                 </Link>
                 <div className="flex flex-col gap-2 mt-4 ml-12 mr-12 mb-3">
@@ -22,10 +22,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
                         <p>{title}</p> | <p>{catalog}</p>
                     </Typography>
                     {productUrl &&
-                    <img src={productUrl} alt="Product Image" className="w-full h-[40rem] p-5" />}
-                    <Typography color="textSecondary">
-                        Amazing content description goes here.
-                    </Typography>
+                        <img src={link} alt="Product Image" className="w-full h-[40rem] p-5" />}
                     <Typography color="textSecondary">
                         {description}
                     </Typography>

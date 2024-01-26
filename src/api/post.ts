@@ -20,11 +20,11 @@ export const getAllPosts = async () => {
     }
 };
 
-export const createPost = async (post: IPost) => {
+export const createPost = async (postData: IPost) => {
     const token = getAuthToken();
 
     try {
-        return apiClient.post('/', post, {
+        return apiClient.post('/post', postData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -4,24 +4,29 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import AddPost from "./AddPost";
 import Post from "./Post";
-import { Suspense, useEffect, useState } from "react";
-import { getAllPosts } from "../../api/post";
+import { useEffect, useState } from "react";
+import { createPost, getAllPosts } from "../../api/post";
+import { IUser } from "../../types/auth";
+
+
+interface IPostUserData extends Pick<IUser, 'firstName' | 'lastName' | 'pictureUrl'> { }
 
 export interface IPost {
+  _id: string;
   title: string;
   catalog: string;
   description: string;
   link?: string;
   productUrl?: string;
   price: number;
-  userId?: string;
+  user?: IPostUserData;
 }
 
 
 const Posts = () => {
   const { user } = useUser();
 
-  const [postList, setPostList] = useState<IPost[]>(null)
+  const [postList, setPostList] = useState<IPost[]>()
 
   const methods = useForm<IPost>({
     defaultValues: {
@@ -35,8 +40,16 @@ const Posts = () => {
   })
 
   const handleSubmitPost = async (postData: IPost) => {
-    console.log(postData)
-  }
+    postData.user = user._id;
+
+    const response = await createPost(postData);
+
+    if (response?.status !== 201 || !postList) {
+      console.log('Failed to create post');
+      return;
+    }
+    setPostList([response?.data, ...postList]);
+  };
 
   const fetchAllPosts = async () => {
     const response = await getAllPosts();
@@ -44,6 +57,8 @@ const Posts = () => {
     if (response?.status !== 200) {
       console.error('Failed To Fetch Posts')
     }
+
+    console.log(response?.data)
 
     setPostList(response?.data || [])
   }
@@ -58,8 +73,8 @@ const Posts = () => {
         <AddPost handleSubmitPost={handleSubmitPost} />
       </FormProvider>
       {
-      postList ? postList.map((post: IPost) => <Post post={post} />)
-        : <p>Loading</p>
+        postList ? postList.map((post: IPost) => <Post post={post} key={post._id} />)
+          : <p>Loading</p>
       }
 
     </Container>

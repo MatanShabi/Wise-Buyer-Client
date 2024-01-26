@@ -3,6 +3,7 @@ export interface IUser {
     email: string;
     firstName: string;
     lastName: string;
+    pictureUrl: string;
     accessToken: string;
     refreshToken: string;
 };
