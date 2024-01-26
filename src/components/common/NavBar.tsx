@@ -10,20 +10,30 @@ const Navbar: React.FC<NavbarProps> = () => {
   
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h6" component={Link} to="/">
-          Your App Name
+          Wise-Buyer
         </Typography>
-        {/* TODO: connect logout also to server */}
-        <Button onClick={logoutUser} color="inherit" component={Link} to="/">
+        <div>
+          <Button color="inherit" component={Link} to="/profile">
+            Profile
+          </Button>
+          <Button color="inherit" component={Link} to="/aboutus">
+            About Us
+          </Button>
+          <Button color="inherit" component={Link} to="/privacypolicy">
+            Privacy Policy
+          </Button>
+          <Button color="inherit" component={Link} to="/signup">
+            Sign Up
+          </Button>
+        </div>
+        <Button onClick={logoutUser} color="inherit" component={Link} to="/" sx={{ marginLeft: '20px' }}>
           Logout
-        </Button>
-        <Button color="inherit" component={Link} to="/signup">
-          Sign Up
         </Button>
       </Toolbar>
     </AppBar>
   );
-};
+}
 
 export default Navbar;
