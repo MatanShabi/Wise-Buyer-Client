@@ -39,7 +39,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           </IconButton>
 
         </div>
-        <IconButton color="inherit" component={Link} to="/logout">
+        <IconButton onClick={logoutUser} color="inherit" component={Link} to="/">
             <LogoutIcon />
             <p>Logout</p>
           </IconButton>
