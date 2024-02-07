@@ -160,14 +160,14 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                     <Button
                         variant="contained"
                         component="label"
-                        htmlFor="picture"
+                        htmlFor="addPostInput"
                         color="secondary"
 
                         startIcon={<AddPhotoAlternateIcon />}
                     >
                         Add Picture
                         <input
-                            id="picture"
+                            id="addPostInput"
                             name="picture"
                             type="file"
                             accept="image/*"

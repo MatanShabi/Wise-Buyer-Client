@@ -27,7 +27,6 @@ const PostEditMode: FC<PostEditModeProps> = ({ post, index, updateIsEditMode, ha
             return;
         }
         const response = await uploadFile(`/post/${user._id}`, file);
-        console.log(response)
 
         setValue('pictureUrl', response?.data?.url || '')
     }
@@ -166,13 +165,13 @@ const PostEditMode: FC<PostEditModeProps> = ({ post, index, updateIsEditMode, ha
                     <Button
                         variant="contained"
                         component="label"
-                        htmlFor="picture"
+                        htmlFor="editPostInput"
                         color="secondary"
                         startIcon={<AddPhotoAlternateIcon />}
                     >
                         Add Picture
                         <input
-                            id="picture"
+                            id="editPostInput"
                             name="picture"
                             type="file"
                             accept="image/*"
