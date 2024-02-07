@@ -28,14 +28,10 @@ export const createPost = async (postData: IPost) => {
     }
 };
 
-export const getUserPosts = async () => {
+export const getUserPosts = async (userId: string | undefined) => {
     try {        
         const token = getAuthToken();
-        let userid = token?.split('.')[1];
-        userid = userid ? JSON.parse(atob(userid))._id : undefined;
-        console.log(userid);        
-
-        return apiClient.get(`/post/user/${userid}`, {
+        return apiClient.get(`/post/user/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
