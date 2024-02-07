@@ -13,7 +13,6 @@ const Signup: React.FC = () => {
         try {
             const { status, statusText } = await register(data)
             if (status !== 201) {
-                // TODO: display error in the screen
                 throw Error(`Error: ${status} - ${statusText}`);
             }
             navigate('/')

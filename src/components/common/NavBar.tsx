@@ -1,29 +1,59 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
-import useUser from '../../hooks/useUser';
+import React from "react";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import useUser from "../../hooks/useUser";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import PolicyIcon from "@mui/icons-material/Policy";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-interface NavbarProps { }
+interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
-  const { logoutUser, user } = useUser()
+  const { logoutUser, user } = useUser();
 
   return (
-    <AppBar position="static" className='flex w-full'>
-      <Toolbar>
-        <div className='flex items-center gap-2'>
-          <Typography variant="h6" component={Link} to="/">
-            Wise Buyer
-          </Typography>
-          <Typography variant="h6" component={Link} to="/">
-            Welcome {user.firstName} {user.lastName} !
-          </Typography>
-          <Typography variant="h6" component={Link} to="/">
-            <Button onClick={logoutUser} color="inherit" component={Link} to="/">
-              Logout
-            </Button>
-          </Typography>
+    <AppBar position="static">
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography
+          variant="h6"
+          component={Link}
+          to="/"
+          sx={{ display: "flex", alignItems: "center" }}
+        >
+          <img
+            src="src/assets/logo.svg"
+            style={{ width: "80px", height: "80px", marginRight: "5px" }}
+          />
+          <p style={{ fontWeight: "bold", fontSize: "20px" }}>Wise-Buyer</p>
+        </Typography>
+
+        <div>
+          <IconButton color="inherit" component={Link} to={`/profile/${user._id}`}>
+            <AccountBoxIcon />
+            <p>Profile</p>
+          </IconButton>
+
+          <IconButton color="inherit" component={Link} to="/aboutus">
+            <InfoIcon />
+            <p>About Us</p>
+          </IconButton>
+
+          <IconButton color="inherit" component={Link} to="/privacypolicy">
+            <PolicyIcon />
+            <p>Privacy Policy</p>
+          </IconButton>
         </div>
+        <IconButton
+          onClick={logoutUser}
+          color="inherit"
+          component={Link}
+          to="/"
+        >
+          <LogoutIcon />
+          <p>Logout</p>
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

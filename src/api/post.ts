@@ -40,3 +40,16 @@ export const updatePost = async (updatedPostData: IPost) => {
         console.error(`Error to update post: ${updatedPostData}`, error);
     }
 };
+
+export const getUserPosts = async (userId: string | undefined) => {
+    try {        
+        const token = getAuthToken();
+        return apiClient.get(`/post/user/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+};
