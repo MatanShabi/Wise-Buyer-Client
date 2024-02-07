@@ -6,9 +6,11 @@ import AppError from "./components/Error.tsx";
 import App from "./components/App.tsx";
 import { ThemeProvider, createTheme } from "@mui/material";
 import Post from "./components/posts/index.tsx";
+import AboutUsPage from "./components/aboutus/index.tsx";
 import Signup from "./components/signup/index.tsx";
 import Login from "./components/login/index.tsx";
 import ProfilePage from "./components/profile/index.tsx";
+import PrivacyPolicyPage from "./components/privacypolicy/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/profile/:userId",
         element: <ProfilePage />,
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUsPage />,
+      },
+      {
+        path: "/privacypolicy",
+        element: <PrivacyPolicyPage />,
       },
     ],
   },
