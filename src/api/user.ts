@@ -14,3 +14,16 @@ export const userUpdatePut = async (user: IUser) => {
         console.error("Error updating user:", error);
     }
 };
+
+export const getUserById = async (userId: String) => {   
+    try {
+        const token = getAuthToken();
+        return await apiClient.get<IUser>(`user/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error("Error updating user:", error);
+    }
+};
