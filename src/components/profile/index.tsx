@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 
 import { useEffect, useState } from "react";
-import { getUserPosts } from "../../api/post";
+import { getUserPosts, updatePost } from "../../api/post";
 import { getUserById } from "../../api/user";
 import { IPost } from "../../types/post";
 import Post from "../posts/Post";
@@ -31,6 +31,20 @@ const ProfilePage = () => {
     if (res) setprofileUser(res.data);
   };
 
+  const handleUpdatePost = async (updatedPostData: IPost, index: number) => {
+    const response = await updatePost(updatedPostData);
+    if(response?.status !==200){
+      console.log('Failed to update post');
+      return; 
+    }
+
+    const posts = [...(postList ?? [])];
+    posts[index] = { ...posts[index], ...updatedPostData };
+
+    setPostList(posts);
+  };
+
+
   useEffect(() => {
     setprofileUser(undefined);
     fetchUserPosts();
@@ -48,7 +62,7 @@ const ProfilePage = () => {
         fetchUserPosts={fetchUserPosts}
       />
       {postList ? (
-        postList.map((post: IPost) => <Post post={post} key={post._id} />)
+        postList.map((post: IPost, index: number) => <Post post={post} index={index} key={post._id} handleUpdatePost={handleUpdatePost}/>)
       ) : (
         <p>Loading</p>
       )}
