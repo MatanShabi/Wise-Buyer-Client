@@ -170,6 +170,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
                             id="picture"
                             name="picture"
                             type="file"
+                            accept="image/png, image/jpeg"
                             onChange={handleFileUpload}
                             style={{ display: "none" }}
                         />

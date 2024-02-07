@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { CommentOutlined } from "@mui/icons-material";
 import { IPost } from "../../types/post";
 import { FC, useState } from "react";
-import EditPost from "./EditPost";
 import useUser from "../../hooks/useUser";
+import PostEditMode from "./EditPost";
 
 interface PostProps {
     post: IPost;
@@ -74,7 +74,7 @@ const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
     )
 
     return (
-        !isEditMode ? PostViewMode : <EditPost
+        !isEditMode ? PostViewMode : <PostEditMode
             post={post}
             index={index}
             updateIsEditMode={setIsEditMode}
