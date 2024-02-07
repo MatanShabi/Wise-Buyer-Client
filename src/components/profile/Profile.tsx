@@ -115,8 +115,9 @@ const Profile: React.FC<MyProfileProps> = ({
           </Stack>
         </Box>
         <Divider />
-        {isActiveUserProfile && (
+        
           <Box sx={{ p: 2 }}>
+          {isActiveUserProfile && (
             <Typography gutterBottom sx={{ display: "flex", gap: "30px" }}>
               <Button onClick={handleEditNameOpen} variant="contained">
                 edit Name
@@ -139,8 +140,9 @@ const Profile: React.FC<MyProfileProps> = ({
                 </Button>
               </label>
             </Typography>
+            )}
           </Box>
-        )}
+        
       </Card>
       {isActiveUserProfile && (
         <Dialog open={open} onClose={handleEditNameClose}>
