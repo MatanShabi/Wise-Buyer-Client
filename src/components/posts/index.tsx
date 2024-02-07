@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 import AddPost from "./AddPost";
 import Post from "./Post";
 import { useEffect, useState } from "react";
-import { createPost, getAllPosts } from "../../api/post";
+import { createPost, getAllPosts, updatePost } from "../../api/post";
 import { IPost } from "../../types/post";
 
 const Posts = () => {
@@ -26,8 +26,17 @@ const Posts = () => {
   };
 
   const handleUpdatePost = async (updatedPostData: IPost, index: number) => {
+
+    const response = await updatePost(updatedPostData);
+
+    if(response?.status !==200){
+      console.log('Failed to update post');
+      return; 
+    }
+
     const posts = [...postList];
     posts[index] = { ...posts[index], ...updatedPostData };
+
     setPostList(posts);
   };
 
