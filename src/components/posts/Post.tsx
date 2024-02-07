@@ -74,6 +74,7 @@ const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
                   onClick={() => {
                     setIsEditMode(true);
                   }}
+                  sx= {{marginLeft: "15px"}}
                   startIcon={<CommentOutlined />}
                 >
                   Edit Post
