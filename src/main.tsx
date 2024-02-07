@@ -5,7 +5,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import AppError from './components/Error.tsx';
 import App from './components/App.tsx';
 import { ThemeProvider, createTheme } from '@mui/material';
+
 import Post from './components/posts/index.tsx';
+import Profile from './components/profile/index.tsx';
 import Signup from './components/signup/index.tsx';
 import Login from './components/login/index.tsx';
 
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/post",
         element: <Post />
+      },
+      {
+        path: "/profile",
+        element: <Profile />
       },
     ],
   },
