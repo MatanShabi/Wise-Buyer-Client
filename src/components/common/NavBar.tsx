@@ -11,7 +11,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
-  const { logoutUser } = useUser();
+  const { logoutUser, user } = useUser();
 
   return (
     <AppBar position="static">
@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         </Typography>
 
         <div>
-          <IconButton color="inherit" component={Link} to="/profile">
+          <IconButton color="inherit" component={Link} to={`/profile/${user._id}`}>
             <AccountBoxIcon />
             <p>Profile</p>
           </IconButton>
