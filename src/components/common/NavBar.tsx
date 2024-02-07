@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = () => {
             src="src/assets/logo.svg"
             style={{ width: "80px", height: "80px", marginRight: "5px" }}
           />
-          <p style={{ fontWeight: 'bold', fontSize: '20px' }}>Wise-Buyer</p>
+          <p style={{ fontWeight: "bold", fontSize: "20px" }}>Wise-Buyer</p>
         </Typography>
 
         <div>

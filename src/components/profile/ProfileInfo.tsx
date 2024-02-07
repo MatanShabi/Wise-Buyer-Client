@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useUser from "../../hooks/useUser";
 import { IUser } from "../../types/auth";
 import { userUpdatePut } from "../../api/user";
+import { uploadFile } from "../../api/upload";
 import {
   Avatar,
   Button,
@@ -17,14 +18,13 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import { cp } from "fs";
 
 const ProfileInfo: React.FC = () => {
   const { user, updateUser } = useUser();
   const [open, setOpen] = useState(false);
   const [updatedUser, setUpdatedUser] = useState<IUser>({ ...user });
-
-  const userPictureUrl = user.pictureUrl;
-
+;
   const handleEditNameClose = () => {
     setOpen(false);
   };
@@ -56,6 +56,23 @@ const ProfileInfo: React.FC = () => {
     }));
   };
 
+  const handleProfilePictureChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {        
+      const res = await uploadFile(`/profileImages/${user._id}/`, file);
+      const newUser = {
+        ...user,
+        pictureUrl: res?.data.url || '',
+      }
+      setUpdatedUser(newUser);
+      updateUser(newUser);
+      userUpdatePut(newUser);
+      
+      window.location.reload();
+    }
+  };
+
+
   return (
     <div
       className="user-profile"
@@ -64,7 +81,7 @@ const ProfileInfo: React.FC = () => {
       <Card variant="outlined" sx={{ maxWidth: 500, minWidth: 360 }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Avatar
-            src={userPictureUrl}
+            src={user.pictureUrl}
             alt="User"
             sx={{ width: 100, height: 100, margin: "10px" }}
           />
@@ -91,9 +108,18 @@ const ProfileInfo: React.FC = () => {
           <Typography gutterBottom sx={{ display: "flex", gap: "30px" }}>
             <Button onClick={handleEditNameOpen} variant="contained">edit Name</Button>
 
-            <Button  variant="contained" style={{ backgroundColor: "gray" }}>
-              edit Profile Picture
-            </Button>
+            <input
+              type="file"
+              accept="image/*"
+              id="profilePictureInput"
+              style={{ display: "none" }}
+              onChange={handleProfilePictureChange}
+            />
+            <label htmlFor="profilePictureInput">
+              <Button variant="contained" component="span" style={{ backgroundColor: "gray" }}>
+                edit Profile Picture
+              </Button>
+            </label>
           </Typography>
         </Box>
       </Card>
