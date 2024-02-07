@@ -1,6 +1,5 @@
 import useUser from "../../hooks/useUser";
 import { Container } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
 
 import AddPost from "./AddPost";
 import Post from "./Post";
@@ -8,24 +7,10 @@ import { useEffect, useState } from "react";
 import { createPost, getAllPosts } from "../../api/post";
 import { IPost } from "../../types/post";
 
-
-
-
 const Posts = () => {
   const { user } = useUser();
 
-  const [postList, setPostList] = useState<IPost[]>()
-
-  const methods = useForm<IPost>({
-    defaultValues: {
-      title: "",
-      link: "",
-      catalog: "",
-      pictureUrl: "",
-      description: "",
-      price: 0,
-    }
-  })
+  const [postList, setPostList] = useState<IPost[]>([])
 
   const handleSubmitPost = async (postData: IPost) => {
     postData.user = user._id;
@@ -36,8 +21,14 @@ const Posts = () => {
       console.log('Failed to create post');
       return;
     }
-    
+
     setPostList([response?.data, ...postList]);
+  };
+
+  const handleUpdatePost = async (updatedPostData: IPost, index: number) => {
+    const posts = [...postList];
+    posts[index] = { ...posts[index], ...updatedPostData };
+    setPostList(posts);
   };
 
   const fetchAllPosts = async () => {
@@ -56,14 +47,15 @@ const Posts = () => {
 
   return (
     <Container maxWidth="lg" className="my-8">
-      <FormProvider {...methods}>
-        <AddPost handleSubmitPost={handleSubmitPost} />
-      </FormProvider>
+      <AddPost handleSubmitPost={handleSubmitPost} />
       {
-        postList ? postList.map((post: IPost) => <Post post={post} key={post._id} />)
+        postList.length ? postList.map((post: IPost, index: number) =>
+          <Post post={post}
+            key={post._id}
+            index={index}
+            handleUpdatePost={handleUpdatePost} />)
           : <p>Loading</p>
       }
-
     </Container>
   );
 };

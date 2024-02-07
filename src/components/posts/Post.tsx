@@ -2,23 +2,22 @@ import { Avatar, Button, Card, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { CommentOutlined } from "@mui/icons-material";
 import { IPost } from "../../types/post";
-import { useState } from "react";
+import { FC, useState } from "react";
 import EditPost from "./EditPost";
 import useUser from "../../hooks/useUser";
 
 interface PostProps {
     post: IPost;
+    index: number;
+    handleUpdatePost: (updatedPostData: IPost, index: number) => void
 }
 
-const Post: React.FC<PostProps> = ({ post }) => {
+const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
     const [isEditMode, setIsEditMode] = useState(false);
     const { user } = useUser();
     const { title, description, catalog, pictureUrl, price, link, user: postUser, _id } = post;
 
-    console.log(postUser)
-    console.log(user)
-
-    if (!user) return null;
+    if (!user) return <></>;
 
     const PostViewMode = (
         <Card className="mt-4" style={{ borderRadius: '0.6rem' }}>
@@ -54,13 +53,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
                                 Comments
                             </Button>
                             {postUser?._id == user._id &&
-                            <Button
-                                variant="contained"
-                                onClick={() => { setIsEditMode(true) }}
-                                startIcon={<CommentOutlined />}
-                            >
-                                Edit Post
-                            </Button>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => { setIsEditMode(true) }}
+                                    startIcon={<CommentOutlined />}
+                                >
+                                    Edit Post
+                                </Button>
                             }
                         </Typography>
                     </div>
@@ -75,7 +74,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
     )
 
     return (
-        !isEditMode ? PostViewMode : <EditPost handleSubmitPost={() => { }} />
+        !isEditMode ? PostViewMode : <EditPost
+            post={post}
+            index={index}
+            updateIsEditMode={setIsEditMode}
+            handleUpdatePost={handleUpdatePost} />
     );
 };
 

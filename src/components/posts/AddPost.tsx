@@ -1,5 +1,5 @@
 import { ChangeEvent, FC } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Button, FormControl, InputLabel, MenuItem, Paper, Select, TextField } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { Catalog } from "./enums";
@@ -13,7 +13,17 @@ interface AddNewProps {
 
 const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
     const { user } = useUser();
-    const { handleSubmit, control, formState, setValue, watch } = useFormContext<IPost>();
+    const { handleSubmit, control, formState, setValue, watch, reset } = useForm<IPost>({
+        defaultValues: {
+            title: "",
+            link: "",
+            catalog: "",
+            pictureUrl: "",
+            description: "",
+            price: 0,
+        }
+    })
+
     const { pictureUrl } = watch();
 
     const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +42,10 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
         <Paper className="p-8 border-b-4 border-black">
             <form
                 className="flex flex-col gap-1"
-                onSubmit={handleSubmit(handleSubmitPost)}
+                onSubmit={handleSubmit((postData: IPost) => {
+                    handleSubmitPost(postData);
+                    reset();
+                })}
             >
                 <Controller
                     name="title"

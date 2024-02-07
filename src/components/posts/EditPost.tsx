@@ -1,5 +1,5 @@
-import { ChangeEvent, FC } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { ChangeEvent, Dispatch, FC, SetStateAction } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Button, FormControl, InputLabel, MenuItem, Paper, Select, TextField } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { Catalog } from "./enums";
@@ -8,12 +8,15 @@ import useUser from "../../hooks/useUser";
 import { IPost } from "../../types/post";
 
 interface EditPostProps {
-    handleSubmitPost: (postData: IPost) => void;
+    post: IPost,
+    index: number;
+    handleUpdatePost: (updatedPostData: IPost,index:number) => void;
+    updateIsEditMode: Dispatch<SetStateAction<boolean>>;
 }
 
-const EditPost: FC<EditPostProps> = ({ handleSubmitPost }) => {
+const EditPost: FC<EditPostProps> = ({ post,index, updateIsEditMode, handleUpdatePost }) => {
     const { user } = useUser();
-    const { handleSubmit, control, formState, setValue, watch } = useFormContext<IPost>();
+    const { handleSubmit, control, formState, setValue, watch } = useForm<IPost>({ values: post })
     const { pictureUrl } = watch();
 
     const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +35,10 @@ const EditPost: FC<EditPostProps> = ({ handleSubmitPost }) => {
         <Paper className="p-8 border-b-4 border-black">
             <form
                 className="flex flex-col gap-1"
-                onSubmit={handleSubmit(handleSubmitPost)}
+                onSubmit={handleSubmit((updatedPostData: IPost) => {
+                    handleUpdatePost(updatedPostData, index)
+                    updateIsEditMode(false)
+                })}
             >
                 <Controller
                     name="title"
@@ -163,7 +169,7 @@ const EditPost: FC<EditPostProps> = ({ handleSubmitPost }) => {
                     </Button>
 
                     <Button type="submit" variant="contained" color="primary">
-                        Post
+                        Update Post
                     </Button>
 
                 </div>
