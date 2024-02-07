@@ -17,7 +17,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       <CardContent style={{ display: "flex", alignItems: "flex-start" }}>
         <div style={{ flex: "1", marginRight: "20px" }}>
           <Link
-            to={`/user/profile/${user._id}`}
+            to={`/profile/${user._id}`}
             color="inherit"
             className="flex items-center gap-2"
           >
