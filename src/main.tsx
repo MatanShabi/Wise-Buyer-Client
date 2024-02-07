@@ -7,7 +7,8 @@ import App from './components/App.tsx';
 import { ThemeProvider, createTheme } from '@mui/material';
 
 import Post from './components/posts/index.tsx';
-import Profile from './components/profile/index.tsx';
+import MyProfile from './components/profile/index.tsx';
+import SpecificUserProfile from './components/profile/index.tsx';
 import Signup from './components/signup/index.tsx';
 import Login from './components/login/index.tsx';
 
@@ -33,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile />
+        element: <MyProfile />
+      },
+      {
+        path: '/user/profile/:userId',
+        element: <SpecificUserProfile />,
       },
     ],
   },
