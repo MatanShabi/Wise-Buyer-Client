@@ -9,6 +9,7 @@ import Post from "./components/posts/index.tsx";
 import Signup from "./components/signup/index.tsx";
 import Login from "./components/login/index.tsx";
 import ProfilePage from "./components/profile/index.tsx";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const router = createBrowserRouter([
   {
@@ -50,8 +51,10 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <GoogleOAuthProvider clientId="692947706832-6hv33v0km6ab6haj88c98kdfl4h7gi3n.apps.googleusercontent.com">
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
