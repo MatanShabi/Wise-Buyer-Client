@@ -1,8 +1,7 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography} from '@mui/material';
 import { Link } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
-// import Button2 from "@mui/material/Button";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from '@mui/icons-material/Info';
