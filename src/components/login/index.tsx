@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../api/auth';
+import { googleSignin, login } from '../../api/auth';
 import useUser from '../../hooks/useUser';
 import { LoginData } from '../../types/auth';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -26,6 +27,26 @@ const Login: React.FC = () => {
       console.error(`Failed to login, error: ${error}`);
     }
   };
+
+  const onGoogleLoginSuccess = async (credentialResponse: CredentialResponse) => {
+    try {
+        const { data: user, status, statusText } = await googleSignin(credentialResponse)
+
+        if (status !== 200) {
+          throw Error(`Error: ${status} - ${statusText}`);
+        }
+  
+        updateUser(user)
+        navigate('/post');
+
+    } catch (error) {
+      console.error(`Failed to login with google, error: ${error}`);
+    }
+}
+
+const onGoogleLoginFailure = () => {
+    console.log("Google login failed")
+}
 
   const handleSignup = () => {
     navigate('/signup')
@@ -88,6 +109,10 @@ const Login: React.FC = () => {
               />
             )}
           />
+          <GoogleLogin
+              onSuccess={onGoogleLoginSuccess}
+              onError={onGoogleLoginFailure}
+            />
           <div className='flex flex-row gap-1'>
             <Button type="submit" variant="contained" color="primary" fullWidth sx={{ marginTop: 2 }}>
               Login
