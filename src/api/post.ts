@@ -24,6 +24,19 @@ export const createPost = async (postData: IPost) => {
             }
         });
     } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error(`Error to create post: ${postData}`, error);
+    }
+};
+
+export const updatePost = async (updatedPostData: IPost) => {
+    try {
+        const token = getAuthToken();
+        return apiClient.put(`/post/${updatedPostData._id}`, updatedPostData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error(`Error to update post: ${updatedPostData}`, error);
     }
 };

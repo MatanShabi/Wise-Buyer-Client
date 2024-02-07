@@ -2,24 +2,31 @@ import { Avatar, Button, Card, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { CommentOutlined } from "@mui/icons-material";
 import { IPost } from "../../types/post";
+import { FC, useState } from "react";
+import useUser from "../../hooks/useUser";
+import PostEditMode from "./EditPost";
 
 interface PostProps {
     post: IPost;
+    index: number;
+    handleUpdatePost: (updatedPostData: IPost, index: number) => void
 }
 
-const Post: React.FC<PostProps> = ({ post }) => {
-    const { title, description, catalog, pictureUrl, price, link, user, _id } = post;
+const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
+    const [isEditMode, setIsEditMode] = useState(false);
+    const { user } = useUser();
+    const { title, description, catalog, pictureUrl, price, link, user: postUser, _id } = post;
 
-    if (!user) return null;
+    if (!user) return <></>;
 
-    return (
+    const PostViewMode = (
         <Card className="mt-4" style={{ borderRadius: '0.6rem' }}>
             <CardContent style={{ display: 'flex', alignItems: 'flex-start' }}>
                 <div style={{ flex: '1', marginRight: '20px' }}>
-                    <Link to={`/user/profile/${user._id}`} color="inherit" className="flex items-center gap-2">
+                    <Link to={`/user/profile/${postUser?._id}`} color="inherit" className="flex items-center gap-2">
                         <Avatar alt={user.firstName.toUpperCase() || ""} src={user.pictureUrl} />
                         <Typography variant="h6">
-                            {user.firstName} {user.lastName}
+                            {postUser?.firstName} {postUser?.lastName}
                         </Typography>
                     </Link>
                     <div className="flex flex-col gap-2 mt-4">
@@ -45,6 +52,15 @@ const Post: React.FC<PostProps> = ({ post }) => {
                             >
                                 Comments
                             </Button>
+                            {postUser?._id == user._id &&
+                                <Button
+                                    variant="contained"
+                                    onClick={() => { setIsEditMode(true) }}
+                                    startIcon={<CommentOutlined />}
+                                >
+                                    Edit Post
+                                </Button>
+                            }
                         </Typography>
                     </div>
                 </div>
@@ -55,6 +71,14 @@ const Post: React.FC<PostProps> = ({ post }) => {
                 )}
             </CardContent>
         </Card>
+    )
+
+    return (
+        !isEditMode ? PostViewMode : <PostEditMode
+            post={post}
+            index={index}
+            updateIsEditMode={setIsEditMode}
+            handleUpdatePost={handleUpdatePost} />
     );
 };
 
