@@ -18,9 +18,9 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { cp } from "fs";
 
-const ProfileInfo: React.FC = () => {
+
+const MyProfile: React.FC = () => {
   const { user, updateUser } = useUser();
   const [open, setOpen] = useState(false);
   const [updatedUser, setUpdatedUser] = useState<IUser>({ ...user });
@@ -158,4 +158,4 @@ const ProfileInfo: React.FC = () => {
   );
 };
 
-export default ProfileInfo;
+export default MyProfile;
