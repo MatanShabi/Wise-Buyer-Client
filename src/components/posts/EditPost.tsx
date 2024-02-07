@@ -175,7 +175,7 @@ const PostEditMode: FC<PostEditModeProps> = ({ post, index, updateIsEditMode, ha
                             id="picture"
                             name="picture"
                             type="file"
-                            accept="image/png, image/jpeg"
+                            accept="image/*"
                             onChange={handleFileUpload}
                             style={{ display: "none" }}
                         />
