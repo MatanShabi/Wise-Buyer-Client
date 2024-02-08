@@ -5,7 +5,7 @@ import { getAuthToken } from "./utils";
 export const userUpdatePut = async (user: IUser) => {   
     try {
         const token = await getAuthToken();
-        return await apiClient.put<IUser>(`user/${user._id}`, user, {
+        return apiClient.put<IUser>(`user/${user._id}`, user, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

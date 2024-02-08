@@ -49,7 +49,6 @@ const Profile: React.FC<MyProfileProps> = ({
     setDisplayUser(updatedUser);
     setUpdatedUser(updatedUser);
     handleEditNameClose();
-    fetchUserPosts()
   };
 
   const handleFirstNameChange = (
@@ -74,13 +73,16 @@ const Profile: React.FC<MyProfileProps> = ({
     const file = event.target.files?.[0];
     if (file) {
       const res = await uploadFile(`/profileImages/${profileUser._id}/`, file);
+
       const newUser = {
         ...profileUser,
         pictureUrl: res?.data.url || "",
       };
+      
+      await userUpdatePut(newUser);
       setUpdatedUser(newUser);
-      userUpdatePut(newUser);
-      window.location.reload();
+      setDisplayUser(newUser)
+      fetchUserPosts()
     }
   };
 
