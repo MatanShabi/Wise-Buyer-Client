@@ -25,6 +25,7 @@ const Posts = () => {
     }
 
     setPostList([response?.data, ...postList]);
+    setFilteredPosts([response?.data, ...postList]);
   };
 
   const handleUpdatePost = async (updatedPostData: IPost, index: number) => {
