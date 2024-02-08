@@ -8,11 +8,12 @@ import PostEditMode from "./EditPost";
 
 interface PostProps {
   post: IPost;
-  index: number;
-  handleUpdatePost: (updatedPostData: IPost, index: number) => void;
+  index?: number;
+  handleUpdatePost?: (updatedPostData: IPost, index: number) => void;
 }
 
 const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
+  console.log("post in post" + post);
   const [isEditMode, setIsEditMode] = useState(false);
   const { user } = useUser();
   const {
@@ -37,7 +38,6 @@ const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
             color="inherit"
             className="flex items-center gap-2"
           >
-
             <Avatar
               alt={postUser?.firstName.toUpperCase() || ""}
               src={postUser?.pictureUrl}
@@ -74,7 +74,7 @@ const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
                   onClick={() => {
                     setIsEditMode(true);
                   }}
-                  sx= {{marginLeft: "15px"}}
+                  sx={{ marginLeft: "15px" }}
                   startIcon={<CommentOutlined />}
                 >
                   Edit Post
@@ -107,9 +107,9 @@ const Post: FC<PostProps> = ({ post, index, handleUpdatePost }) => {
   ) : (
     <PostEditMode
       post={post}
-      index={index}
+      index={index || 0}
       updateIsEditMode={setIsEditMode}
-      handleUpdatePost={handleUpdatePost}
+      handleUpdatePost={handleUpdatePost || (() => {})}
     />
   );
 };
