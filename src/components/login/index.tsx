@@ -1,46 +1,55 @@
-import React, { useEffect } from 'react';
-import { Button, Container, TextField, Typography, Paper } from '@mui/material';
-import { useForm, Controller } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { login } from '../../api/auth';
-import useUser from '../../hooks/useUser';
-import { LoginData } from '../../types/auth';
+import React, { useEffect } from "react";
+import { Button, Container, TextField, Typography, Paper } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../api/auth";
+import useUser from "../../hooks/useUser";
+import { LoginData } from "../../types/auth";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { user, updateUser } = useUser()
+  const { user, updateUser } = useUser();
   const { control, handleSubmit, formState } = useForm<LoginData>();
 
   const handleLogin = async (loginData: LoginData) => {
     try {
-      const { data: user, status, statusText } = await login(loginData)
+      const { data: user, status, statusText } = await login(loginData);
 
       if (status !== 200) {
         throw Error(`Error: ${status} - ${statusText}`);
       }
 
-      updateUser(user)
+      updateUser(user);
 
-      navigate('/post');
+      navigate("/post");
     } catch (error) {
       console.error(`Failed to login, error: ${error}`);
     }
   };
 
   const handleSignup = () => {
-    navigate('/signup')
-  }
+    navigate("/signup");
+  };
 
   useEffect(() => {
     if (user) {
-      navigate('/post')
+      navigate("/post");
     }
-  }, [])
+  }, []);
 
   return (
     <Container maxWidth="xs">
-      <Paper elevation={3} sx={{ padding: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 20 }}>
-        <img src='src/assets/logo.svg' alt='Logo' className='w-28' />
+      <Paper
+        elevation={3}
+        sx={{
+          padding: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
+        <img src="src/assets/logo.png" alt="Logo" className="w-28" />
         <Typography component="h1" variant="h5" gutterBottom>
           Wise Buyer
         </Typography>
@@ -50,10 +59,10 @@ const Login: React.FC = () => {
             control={control}
             defaultValue=""
             rules={{
-              required: 'Email is required',
+              required: "Email is required",
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: 'Invalid email address',
+                message: "Invalid email address",
               },
             }}
             render={({ field }) => (
@@ -73,7 +82,7 @@ const Login: React.FC = () => {
             control={control}
             defaultValue=""
             rules={{
-              required: 'Password is required',
+              required: "Password is required",
             }}
             render={({ field }) => (
               <TextField
@@ -88,11 +97,24 @@ const Login: React.FC = () => {
               />
             )}
           />
-          <div className='flex flex-row gap-1'>
-            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ marginTop: 2 }}>
+          <div className="flex flex-row gap-1">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ marginTop: 2 }}
+            >
               Login
             </Button>
-            <Button onClick={handleSignup} type="submit" variant="contained" color="secondary" fullWidth sx={{ marginTop: 2 }}>
+            <Button
+              onClick={handleSignup}
+              type="submit"
+              variant="contained"
+              color="secondary"
+              fullWidth
+              sx={{ marginTop: 2 }}
+            >
               Sign Up
             </Button>
           </div>
