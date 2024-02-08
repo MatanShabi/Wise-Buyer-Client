@@ -16,13 +16,14 @@ const AboutUsPage = () => {
   ];
 
   return (
-    <Container maxWidth="lg" className="my-8">
+    <Container maxWidth="lg" className="my-8" >
       <div
         style={{
           border: "2px solid #ccc",
           padding: "50px",
           width: "80%",
           margin: "auto",
+          backgroundColor:'#FFF'
         }}
       >
         <Typography variant="h2" component="h1" gutterBottom align="center">

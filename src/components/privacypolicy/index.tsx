@@ -10,6 +10,7 @@ const PrivacyPolicyPage = () => {
           padding: "50px",
           width: "80%",
           margin: "auto",
+          backgroundColor:"#FFF"
         }}
       >
         <Typography variant="h2" component="h1" gutterBottom align="center">
