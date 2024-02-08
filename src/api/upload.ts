@@ -3,7 +3,7 @@ import { getAuthToken } from "./utils";
 
 export const uploadFile = async (destination: string, file: File) => {
     try {
-        const token = getAuthToken();
+        const token = await getAuthToken();
 
         const formData = new FormData();
         formData.append('file', file);
