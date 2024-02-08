@@ -3,7 +3,7 @@ import { Container, Paper, TextField } from "@mui/material";
 
 import AddPost from "./AddPost";
 import Post from "./Post";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { createPost, deletePostById, getAllPosts, updatePost } from "../../api/post";
 import { IPost } from "../../types/post";
 
@@ -25,7 +25,6 @@ const Posts = () => {
     }
 
     setPostList([response?.data, ...postList]);
-    handleSearch(searchQuery);
   };
 
   const handleUpdatePost = async (updatedPostData: IPost, index: number) => {
@@ -39,7 +38,6 @@ const Posts = () => {
     posts[index] = { ...posts[index], ...updatedPostData };
 
     setPostList(posts);
-    handleSearch(searchQuery);
   };
 
   const handleDeletePost = async (postId: string) => {
@@ -52,7 +50,6 @@ const Posts = () => {
     const index = posts.findIndex((post) => post._id === postId);
     posts.splice(index, 1);
     setPostList(posts);
-    handleSearch(searchQuery);
   };
 
   const fetchAllPosts = async () => {
@@ -62,15 +59,19 @@ const Posts = () => {
       console.error('Failed To Fetch Posts');
     }
 
-    setPostList(response?.data || []);
+    const posts = response?.data || [];
+    setPostList(posts);
+    setFilteredPosts(posts)
   };
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
+  const handleSearch = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const query = event.target.value
+
     const filtered = postList.filter((post) =>
       post.title.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredPosts(filtered);
+    setSearchQuery(query)
   };
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const Posts = () => {
           fullWidth
           margin="normal"
           value={searchQuery}
-          onChange={(e) => handleSearch(e.target.value)}
+          onChange={handleSearch}
         />
       </Paper>
       {filteredPosts.length ? (
