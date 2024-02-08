@@ -9,4 +9,5 @@ export interface IPost {
   pictureUrl?: string;
   price: number;
   user?: IPostUserData;
+  commentsAmount: number;
 }
