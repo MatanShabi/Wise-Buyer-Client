@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 
 import { useEffect, useState } from "react";
-import { getUserPosts, updatePost } from "../../api/post";
+import { deletePostById, getUserPosts, updatePost } from "../../api/post";
 import { getUserById } from "../../api/user";
 import { IPost } from "../../types/post";
 import Post from "../posts/Post";
@@ -33,9 +33,9 @@ const ProfilePage = () => {
 
   const handleUpdatePost = async (updatedPostData: IPost, index: number) => {
     const response = await updatePost(updatedPostData);
-    if(response?.status !==200){
-      console.log('Failed to update post');
-      return; 
+    if (response?.status !== 200) {
+      console.log("Failed to update post");
+      return;
     }
 
     const posts = [...(postList ?? [])];
@@ -44,7 +44,19 @@ const ProfilePage = () => {
     setPostList(posts);
   };
 
+  const handleDeletePost = async (postId: string) => {
+    const response = await deletePostById(postId);
+    if (response?.status !== 200) {
+      console.error("Failed to delete post");
+      return;
+    }
+    const posts = [...(postList ?? [])];
+    const index = posts.findIndex((post) => post._id === postId);
+    posts.splice(index, 1);
+    setPostList(posts);
+  };
 
+  
   useEffect(() => {
     setprofileUser(undefined);
     fetchUserPosts();
@@ -62,9 +74,17 @@ const ProfilePage = () => {
         fetchUserPosts={fetchUserPosts}
       />
       {postList ? (
-        postList.map((post: IPost, index: number) => <Post post={post} index={index} key={post._id} handleUpdatePost={handleUpdatePost}/>)
+        postList.map((post: IPost, index: number) => (
+          <Post
+            post={post}
+            index={index}
+            key={post._id}
+            handleUpdatePost={handleUpdatePost}
+            handleDeletePost={handleDeletePost}
+          />
+        ))
       ) : (
-        <p>Loading</p>
+        <p>Posts don't exists or it takes time to load them</p>
       )}
     </Container>
   );
