@@ -4,7 +4,7 @@ import { getAuthToken } from "./utils";
 
 export const createComment = async (postid: string, commentData: IComment) => {
   try {
-    const token = getAuthToken();
+    const token = await getAuthToken();
     return apiClient.post(`/comments/${postid}`, commentData, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -17,7 +17,7 @@ export const createComment = async (postid: string, commentData: IComment) => {
 
 export const getCommentsOfPost = async (postid: string) => {
   try {
-    const token = getAuthToken();
+    const token = await getAuthToken();
     return apiClient.get(`/comments/${postid}`, {
       headers: {
         Authorization: `Bearer ${token}`,

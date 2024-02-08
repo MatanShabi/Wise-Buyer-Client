@@ -6,6 +6,8 @@ export interface IUser {
     pictureUrl?: string;
     accessToken: string;
     refreshToken: string;
+    refreshTokenInterval: number,
+    loginTime: number,
 };
 
 export type LoginData = {

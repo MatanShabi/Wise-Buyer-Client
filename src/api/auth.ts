@@ -10,6 +10,14 @@ export const register = async (signupData: SignupData) => {
     return await apiClient.post('auth/register', signupData);
 };
 
+export const refreshToken = async (token: string) => {
+    return await apiClient.get('auth/refresh', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+};
+
 export const googleSignin = async (credentialResponse: CredentialResponse) => {
     return await apiClient.post("/auth/google", credentialResponse)
 }

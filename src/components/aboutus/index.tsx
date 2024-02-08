@@ -1,15 +1,16 @@
 import { Container, Typography, Grid, Avatar } from "@material-ui/core";
 
+
 const AboutUsPage = () => {
   const teamMembers = [
     {
       name: "Raz Hagay Gavriel",
-      imageUrl: "http://localhost:3000/public/TeamMembers/raz.jpeg",
+      imageUrl: `${import.meta.env.VITE_BACKEND_URL}/public/TeamMembers/raz.jpeg`,
       phoneNumber: "(+972)50-960-5540",
     },
     {
       name: "Matan Shabi",
-      imageUrl: "http://localhost:3000/public/TeamMembers/matan.jpeg",
+      imageUrl: `${import.meta.env.VITE_BACKEND_URL}/public/TeamMembers/matan.jpeg`,
       phoneNumber: "(+972)54-831-5013",
     },
   ];
