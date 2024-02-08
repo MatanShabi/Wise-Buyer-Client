@@ -30,7 +30,7 @@ const Signup: React.FC = () => {
     return (
         <Container maxWidth="xs">
             <Paper elevation={3} sx={{ padding: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 20 }}>
-                <img src='src/assets/logo.png' alt='Logo' className='w-28' />
+                <img src='/logo.svg' alt='Logo' className='w-28' />
                 <Typography component="h1" variant="h5" gutterBottom>
                     Wise Buyer
                 </Typography>

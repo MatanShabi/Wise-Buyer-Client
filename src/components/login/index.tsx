@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,6 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { user, updateUser } = useUser();
-  const [error, setError] = useState('');
   const { control, handleSubmit, formState } = useForm<LoginData>();
 
   const handleLogin = async (loginData: LoginData) => {
@@ -21,30 +20,24 @@ const Login: React.FC = () => {
 
       navigate("/post");
     } catch (error) {
-      setError('Failed to login, please check username or password.')
       console.error(`Failed to login, error: ${error}`);
     }
   };
 
   const onGoogleLoginSuccess = async (credentialResponse: CredentialResponse) => {
     try {
-        const { data: user, status, statusText } = await googleSignin(credentialResponse)
-
-        if (status !== 200) {
-          throw Error(`Error: ${status} - ${statusText}`);
-        }
-  
+        const { data: user } = await googleSignin(credentialResponse)
+        
         updateUser(user)
         navigate('/post');
 
     } catch (error) {
-      setError('Failed to login with google.')
       console.error(`Failed to login with google, error: ${error}`);
     }
 }
 
 const onGoogleLoginFailure = () => {
-    setError('Failed to login with google.')
+    console.log("Google login failed")
 }
 
   const handleSignup = () => {
@@ -60,11 +53,10 @@ const onGoogleLoginFailure = () => {
   return (
     <Container maxWidth="xs">
       <Paper elevation={3} sx={{ padding: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 20 }}>
-        <img src='src/assets/logo.svg' alt='Logo' className='w-28' />
+        <img src='/logo.svg' alt='Logo' className='w-28' />
         <Typography component="h1" variant="h5" gutterBottom>
           Wise Buyer
         </Typography>
-        <p className={`text-[#ed2121] p-3`}>{error}</p>
         <form onSubmit={handleSubmit(handleLogin)}>
           <Controller
             name="email"

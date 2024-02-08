@@ -24,7 +24,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           sx={{ display: "flex", alignItems: "center" }}
         >
           <img
-            src="./src/assets/logo.png"
+            src="/logo.svg"
             style={{
               width: "95px",
               height: "75px",
