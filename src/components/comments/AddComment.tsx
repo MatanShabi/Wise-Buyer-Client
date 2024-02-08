@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import { createComment, getCommentsOfPost } from "../../api/comment";
+import { createComment } from "../../api/comment";
 import { IComment } from "../../types/comment"; 
 import useUser from "../../hooks/useUser";
 import { updatePost } from "../../api/post";
