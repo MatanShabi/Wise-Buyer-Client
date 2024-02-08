@@ -53,3 +53,16 @@ export const getUserPosts = async (userId: string | undefined) => {
         console.error("Error fetching posts:", error);
     }
 };
+
+export const getPostById = async (postId: string | undefined) => {
+    try {        
+        const token = getAuthToken();
+        return apiClient.get(`/post/${postId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+};
