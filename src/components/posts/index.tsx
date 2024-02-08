@@ -43,14 +43,17 @@ const Posts = () => {
 
   const handleDeletePost = async (postId: string) => {
     const response = await deletePostById(postId);
+
     if (response?.status !== 200) {
       console.error("Failed to delete post");
       return;
     }
+
     const posts = [...(postList ?? [])];
     const index = posts.findIndex((post) => post._id === postId);
     posts.splice(index, 1);
     setPostList(posts);
+    setFilteredPosts(posts)
   };
 
   const fetchAllPosts = async () => {
