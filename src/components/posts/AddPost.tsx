@@ -39,7 +39,7 @@ const AddPost: FC<AddNewProps> = ({ handleSubmitPost }) => {
     }
 
     return (
-        <Paper className="p-8 border-b-4 border-black">
+        <Paper className="p-8 mb-2 border-b-4 border-black">
             <form
                 className="flex flex-col gap-1"
                 onSubmit={handleSubmit((postData: IPost) => {

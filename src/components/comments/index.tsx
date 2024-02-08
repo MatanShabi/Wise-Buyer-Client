@@ -1,4 +1,4 @@
-import { Container, List } from "@mui/material";
+import { Container, List, Paper } from "@mui/material";
 import Post from "../posts/Post";
 import { useEffect, useState } from "react";
 import { IPost } from "../../types/post";
@@ -36,8 +36,10 @@ const CommentsPage = () => {
       {post ? (
         <>
           <Post post={post} />
+          <Paper className="mt-4 p-4">
             <AddComment setPost={setPost as React.Dispatch<React.SetStateAction<IPost | null>>}
-             fetchComments={fetchComments} post={post} />
+              fetchComments={fetchComments} post={post} />
+          </Paper>
           <List>
             {commentList ? (
               commentList.map((comment: IComment) => (
