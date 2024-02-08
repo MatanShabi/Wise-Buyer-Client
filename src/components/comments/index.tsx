@@ -33,21 +33,28 @@ const CommentsPage = () => {
 
   return (
     <Container maxWidth="lg" className="my-8">
-      {post ? <Post post={post} /> : <p>Loading</p>}
-      <AddComment fetchComments={fetchComments} postId={post?._id || ""} />
-      <List>
-        {commentList ? (
-          commentList.map((comment: IComment) => (
-            <Comment
-              key={comment._id}
-              description={comment.description}
-              user={comment.user}
-            />
-          ))
-        ) : (
-          <p>Loading</p>
-        )}
-      </List>
+      {post ? (
+        <>
+          <Post post={post} />
+            <AddComment setPost={setPost as React.Dispatch<React.SetStateAction<IPost | null>>}
+             fetchComments={fetchComments} post={post} />
+          <List>
+            {commentList ? (
+              commentList.map((comment: IComment) => (
+                <Comment
+                  key={comment._id}
+                  description={comment.description}
+                  user={comment.user}
+                />
+              ))
+            ) : (
+              <p>Loading comments...</p>
+            )}
+          </List>
+        </>
+      ) : (
+        <p>Loading post...</p>
+      )}
     </Container>
   );
 };
