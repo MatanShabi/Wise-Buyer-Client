@@ -1,8 +1,9 @@
 import axios, { CanceledError } from "axios";
 
 export { CanceledError }
-const apiClient = axios.create({
-    baseURL: 'http://localhost:3000'
-});
+
+const baseURL = import.meta.env.VITE_BACKEND_URL
+
+const apiClient = axios.create({baseURL});
 
 export default apiClient;

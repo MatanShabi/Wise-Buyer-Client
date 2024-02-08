@@ -1,18 +1,6 @@
-import { Container, Typography, Card, CardContent } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    marginTop: theme.spacing(3),
-    padding: theme.spacing(3),
-    maxWidth: "80%",
-    minHeight: "70vh",
-    margin: "auto",
-  },
-}));
+import { Container, Typography } from "@material-ui/core";
 
 const PrivacyPolicyPage = () => {
-  const classes = useStyles();
 
   return (
     <Container maxWidth="lg" className="my-8">
