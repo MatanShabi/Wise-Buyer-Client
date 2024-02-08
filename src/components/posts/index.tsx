@@ -39,6 +39,7 @@ const Posts = () => {
     posts[index] = { ...posts[index], ...updatedPostData };
 
     setPostList(posts);
+    setFilteredPosts(posts)
   };
 
   const handleDeletePost = async (postId: string) => {

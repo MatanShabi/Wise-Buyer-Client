@@ -164,13 +164,13 @@ const PostEditMode: FC<PostEditModeProps> = ({ post, index, updateIsEditMode, ha
                     <Button
                         variant="contained"
                         component="label"
-                        htmlFor="editPostInput"
+                        htmlFor={`editPostInput-${index}`}
                         color="secondary"
                         startIcon={<AddPhotoAlternateIcon />}
                     >
                         Add Picture
                         <input
-                            id="editPostInput"
+                            id={`editPostInput-${index}`}
                             name="picture"
                             type="file"
                             accept="image/*"
