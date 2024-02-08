@@ -6,7 +6,6 @@ import { Catalog } from "./enums";
 import { uploadFile } from "../../api/upload";
 import useUser from "../../hooks/useUser";
 import { IPost } from "../../types/post";
-
 interface PostEditModeProps {
     post: IPost,
     index: number;
