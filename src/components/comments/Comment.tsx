@@ -1,7 +1,6 @@
 import React from "react";
 import { ListItem, ListItemAvatar, ListItemText, Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import { IComment } from "../../types/comment";
 import { IUser } from "../../types/auth";
 import { Paper } from "@mui/material";
 
