@@ -2,14 +2,15 @@ import { Container, List, Paper } from "@mui/material";
 import Post from "../posts/Post";
 import { useEffect, useState } from "react";
 import { IPost } from "../../types/post";
-import { useParams } from "react-router-dom";
-import { getPostById } from "../../api/post";
+import { useNavigate, useParams } from "react-router-dom";
+import { deletePostById, getPostById, updatePost } from "../../api/post";
 import { AddComment } from "../comments/AddComment";
 import { Comment } from "../comments/Comment";
 import { getCommentsOfPost } from "../../api/comment";
 import { IComment } from "../../types/comment";
 
 const CommentsPage = () => {
+  const navigate = useNavigate()
   const { postId } = useParams<{ postId: string }>();
   const [post, setPost] = useState<IPost | null>(null);
   const [commentList, setCommentList] = useState<IComment[]>();
@@ -26,6 +27,17 @@ const CommentsPage = () => {
     if (res) setCommentList(res.data);
   };
 
+  const handleUpdatePost = async (updatedPostData: IPost) => {
+    await updatePost(updatedPostData);
+    setPost(updatedPostData)
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    await deletePostById(postId);
+    navigate('/post')
+  };
+
+
   useEffect(() => {
     fetchPost();
     fetchComments();
@@ -35,7 +47,7 @@ const CommentsPage = () => {
     <Container maxWidth="lg" className="my-8">
       {post ? (
         <>
-          <Post post={post} />
+          <Post post={post} handleDeletePost={handleDeletePost} handleUpdatePost={handleUpdatePost}/>
           <Paper className="mt-4 p-4">
             <AddComment setPost={setPost as React.Dispatch<React.SetStateAction<IPost | null>>}
               fetchComments={fetchComments} post={post} />
