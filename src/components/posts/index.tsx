@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 import AddPost from "./AddPost";
 import Post from "./Post";
 import { useEffect, useState } from "react";
-import { createPost, getAllPosts, updatePost } from "../../api/post";
+import { createPost, deletePostById, getAllPosts, updatePost } from "../../api/post";
 import { IPost } from "../../types/post";
 
 const Posts = () => {
@@ -26,9 +26,7 @@ const Posts = () => {
   };
 
   const handleUpdatePost = async (updatedPostData: IPost, index: number) => {
-
     const response = await updatePost(updatedPostData);
-
     if(response?.status !==200){
       console.log('Failed to update post');
       return; 
@@ -39,6 +37,19 @@ const Posts = () => {
 
     setPostList(posts);
   };
+
+  const handleDeletePost = async (postId: string) => {
+    const response = await deletePostById(postId);
+    if (response?.status !== 200) {
+      console.error("Failed to delete post");
+      return;
+    }
+    const posts = [...(postList ?? [])];
+    const index = posts.findIndex((post) => post._id === postId);
+    posts.splice(index, 1);
+    setPostList(posts);
+  };
+
 
   const fetchAllPosts = async () => {
     const response = await getAllPosts();
@@ -62,8 +73,10 @@ const Posts = () => {
           <Post post={post}
             key={post._id}
             index={index}
-            handleUpdatePost={handleUpdatePost} />)
-          : <p>Loading</p>
+            handleUpdatePost={handleUpdatePost} 
+            handleDeletePost={handleDeletePost}
+            />)
+          : <p>Posts don't exists or it's take time to load them</p>
       }
     </Container>
   );

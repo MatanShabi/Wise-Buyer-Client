@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import MmsRoundedIcon from '@mui/icons-material/MmsRounded';
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import PolicyIcon from "@mui/icons-material/Policy";
@@ -23,16 +24,32 @@ const Navbar: React.FC<NavbarProps> = () => {
           sx={{ display: "flex", alignItems: "center" }}
         >
           <img
-            src="src/assets/logo.svg"
-            style={{ width: "80px", height: "80px", marginRight: "5px" }}
+            src="./src/assets/logo.png"
+            style={{
+              width: "95px",
+              height: "75px",
+              marginRight: "5px",
+              paddingTop: "5px",
+            }}
           />
           <p style={{ fontWeight: "bold", fontSize: "20px" }}>Wise-Buyer</p>
         </Typography>
 
         <div>
-          <IconButton color="inherit" component={Link} to={`/profile/${user._id}`}>
+
+        
+          <IconButton
+            color="inherit"
+            component={Link}
+            to={`/profile/${user._id}`}
+          >
             <AccountBoxIcon />
             <p>Profile</p>
+          </IconButton>
+
+          <IconButton color="inherit" component={Link} to="/">
+            <MmsRoundedIcon />
+            <p>Posts</p>
           </IconButton>
 
           <IconButton color="inherit" component={Link} to="/aboutus">

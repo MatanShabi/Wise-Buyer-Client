@@ -29,7 +29,6 @@ const Profile: React.FC<MyProfileProps> = ({
   profileUser,
   fetchUserPosts
 }) => {
-  console.log("pro" + profileUser);
   const [open, setOpen] = useState(false);
   const [updatedUser, setUpdatedUser] = useState<IUser>({ ...profileUser });
   const [displayUser, setDisplayUser] = useState<IUser>({ ...profileUser });

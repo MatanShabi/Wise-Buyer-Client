@@ -9,20 +9,20 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { user, updateUser } = useUser()
+  const { user, updateUser } = useUser();
   const { control, handleSubmit, formState } = useForm<LoginData>();
 
   const handleLogin = async (loginData: LoginData) => {
     try {
-      const { data: user, status, statusText } = await login(loginData)
+      const { data: user, status, statusText } = await login(loginData);
 
       if (status !== 200) {
         throw Error(`Error: ${status} - ${statusText}`);
       }
 
-      updateUser(user)
+      updateUser(user);
 
-      navigate('/post');
+      navigate("/post");
     } catch (error) {
       console.error(`Failed to login, error: ${error}`);
     }
@@ -49,14 +49,14 @@ const onGoogleLoginFailure = () => {
 }
 
   const handleSignup = () => {
-    navigate('/signup')
-  }
+    navigate("/signup");
+  };
 
   useEffect(() => {
     if (user) {
-      navigate('/post')
+      navigate("/post");
     }
-  }, [])
+  }, []);
 
   return (
     <Container maxWidth="xs">
@@ -126,5 +126,4 @@ const onGoogleLoginFailure = () => {
     </Container>
   );
 };
-
 export default Login;
