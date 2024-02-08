@@ -11,6 +11,7 @@ import Signup from "./components/signup/index.tsx";
 import Login from "./components/login/index.tsx";
 import ProfilePage from "./components/profile/index.tsx";
 import PrivacyPolicyPage from "./components/privacypolicy/index.tsx";
+import CommentsPage from "./components/comments/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/privacypolicy",
         element: <PrivacyPolicyPage />,
+      },
+      {
+        path: "/comments/:postId",
+        element: <CommentsPage />,
       },
     ],
   },
