@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -10,20 +10,18 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { user, updateUser } = useUser();
+  const [error, setError] = useState('');
   const { control, handleSubmit, formState } = useForm<LoginData>();
 
   const handleLogin = async (loginData: LoginData) => {
     try {
-      const { data: user, status, statusText } = await login(loginData);
-
-      if (status !== 200) {
-        throw Error(`Error: ${status} - ${statusText}`);
-      }
+      const { data: user } = await login(loginData);
 
       updateUser(user);
 
       navigate("/post");
     } catch (error) {
+      setError('Failed to login, please check username or password.')
       console.error(`Failed to login, error: ${error}`);
     }
   };
@@ -40,12 +38,13 @@ const Login: React.FC = () => {
         navigate('/post');
 
     } catch (error) {
+      setError('Failed to login with google.')
       console.error(`Failed to login with google, error: ${error}`);
     }
 }
 
 const onGoogleLoginFailure = () => {
-    console.log("Google login failed")
+    setError('Failed to login with google.')
 }
 
   const handleSignup = () => {
@@ -65,6 +64,7 @@ const onGoogleLoginFailure = () => {
         <Typography component="h1" variant="h5" gutterBottom>
           Wise Buyer
         </Typography>
+        <p className={`text-[#ed2121] p-3`}>{error}</p>
         <form onSubmit={handleSubmit(handleLogin)}>
           <Controller
             name="email"

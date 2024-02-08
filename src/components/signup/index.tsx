@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, TextField, Typography, Paper } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { register } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 import { SignupData } from '../../types/auth';
+import { AxiosError } from 'axios';
 
 const Signup: React.FC = () => {
     const navigate = useNavigate()
+    const [error, setError] = useState('');
     const { control, handleSubmit, formState } = useForm<SignupData>();
 
     const handleSignup = async (data: SignupData) => {
         try {
-            const { status, statusText } = await register(data)
-            if (status !== 201) {
-                throw Error(`Error: ${status} - ${statusText}`);
-            }
+            await register(data)
+            
             navigate('/')
         } catch (error) {
+            console.log(error)
             console.error(`Failed to singup, error: ${error}`);
+            if(error instanceof AxiosError) {
+                setError(error.response?.data);
+                return;
+            }
+            setError('Failed to singup');
         }
     };
 
@@ -28,6 +34,7 @@ const Signup: React.FC = () => {
                 <Typography component="h1" variant="h5" gutterBottom>
                     Wise Buyer
                 </Typography>
+                <p className={`text-[#ed2121] p-3`}>{error}</p>
                 <form onSubmit={handleSubmit(handleSignup)}>
                     <Controller
                         name="firstName"
