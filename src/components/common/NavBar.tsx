@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MmsRoundedIcon from '@mui/icons-material/MmsRounded';
@@ -8,11 +8,23 @@ import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import PolicyIcon from "@mui/icons-material/Policy";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { logout } from "../../api/auth";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
+  const navigate = useNavigate();
   const { logoutUser, user } = useUser();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      logoutUser();
+      navigate('/');
+    }
+    catch(e) {
+      console.log("Falied to logout")
+    }
+  }
 
   return (
     <AppBar position="static">
@@ -63,10 +75,8 @@ const Navbar: React.FC<NavbarProps> = () => {
           </IconButton>
         </div>
         <IconButton
-          onClick={logoutUser}
+          onClick={handleLogout}
           color="inherit"
-          component={Link}
-          to="/"
         >
           <LogoutIcon />
           <p>Logout</p>
